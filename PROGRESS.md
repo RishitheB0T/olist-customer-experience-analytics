@@ -21,8 +21,10 @@
 - Phase 1, Step 3: defined 11 KPIs (main: unhappy order rate = 1-2 stars ÷ reviewed orders) plus rules for counting
 - Phase 1, Step 4: wrote scope (who is in each pattern), baseline plan, out of scope, 9 limitations
 - Phase 1, Step 4 (revised): split each pattern into measurements (all eligible orders) and rating comparisons (reviewed subset), both denominators stated
+- Phase 1, Step 5: final review of the brief (no cause-and-effect wording), project pitch added to README
+- **Phase 1 complete**
 
 ### Next
-- Phase 1, Step 5: final review of the brief, README update, end of Phase 1
+- Phase 2, Step 1: show the Phase 2 roadmap, then load the raw CSVs into PostgreSQL (raw layer)
 
 

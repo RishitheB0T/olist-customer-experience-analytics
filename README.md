@@ -1,9 +1,16 @@
 # Olist Customer Experience Analytics
 
-**Question:** what is linked with unhappy customers on Olist, a Brazilian online marketplace,
-and what could Olist test next to improve their experience?
+Olist is a Brazilian online marketplace. Acting as an analyst for its customer
+experience team, this project uses 99,441 real orders to find what goes together
+with unhappy customers (1-2 star reviews) across delivery, products, sellers and
+price, and whether unhappy customers are less likely to order again. The end result
+is a short list of changes **worth testing**, each with a suggested way to test it.
 
-> 🚧 Work in progress: Phase 0 (Setup) done; next is **Phase 1 (Business question)**.
+**Question:** what is linked with unhappy customers on Olist, and which of those
+things would be worth testing a fix for first?
+Full plan: patterns, KPIs, scope and limitations in [docs/problem_brief.md](docs/problem_brief.md).
+
+> 🚧 Work in progress: Phases 0-1 done; next is **Phase 2 (Clean data)**.
 
 ## Data
 
@@ -46,8 +53,8 @@ Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, scipy, Jupyter, Power BI, Git/Gi
 | Phase | What | Status |
 |---|---|---|
 | 0 | Setup | ✅ Done |
-| 1 | Business question & KPIs | Next |
-| 2 | Clean data (raw → clean → star schema) | — |
+| 1 | Business question & KPIs | ✅ Done |
+| 2 | Clean data (raw → clean → star schema) | Next |
 | 3 | SQL + Python analysis | — |
 | 4 | Basic statistics | — |
 | 5 | Power BI dashboard | — |
