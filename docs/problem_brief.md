@@ -117,7 +117,43 @@ data, are customers who leave a 1-2 star review less likely to order again?**
 
 ## 3. KPIs
 
-_To do in Step 3._
+A KPI (key performance indicator) is one of the few numbers the team watches to
+judge how things are going. We keep the list short: one main KPI, plus supporting
+KPIs for each pattern. The breakdowns in P1-P5 (by category, seller, route...)
+slice these same KPIs; they are not new KPIs.
+
+**"Unhappy" (final definition):** an order whose review score is 1 or 2 stars.
+3 stars is treated as neutral, 4-5 as satisfied.
+
+| KPI | Plain meaning | How it's calculated | Used in |
+|---|---|---|---|
+| **Unhappy order rate** (main KPI) | Out of reviewed orders, how many got 1-2 stars | orders with score 1-2 ÷ orders with a review | all |
+| **Average review score** | The typical star rating (1-5) | mean of `review_score` over reviewed orders | all |
+| **On-time delivery rate** | How often the promise was kept | delivered orders with delivered day ≤ promised day ÷ delivered orders | P1, P2 |
+| **Days late** | How late the late orders were | delivered day - promised day, for late orders; shown as bands (1-3, 4-7, 8+) | P1 |
+| **Delivery time** | How long the customer waited | median days from purchase to delivery | P1, P2 |
+| **Seller hand-over on time rate** | How often sellers gave the parcel to the carrier by the deadline | orders handed over on or before the shared deadline ÷ orders with one shared deadline and a hand-over date | P2 |
+| **Carrier travel time** | How long the carrier took | median days from hand-over to delivery, compared within similar routes | P2 |
+| **Delivery fee share** | How big the delivery fee is next to the price | `freight_value` ÷ `price`, per item | P3 |
+| **Seller concentration** | Whether a few sellers hold most bad reviews | share of all unhappy reviews that belong to the sellers with the most unhappy reviews (single-seller orders, sellers above a minimum order count) | P4 |
+| **Order value in unhappy orders** | How much money passes through orders that end unhappy | total paid for unhappy orders, and its share of all reviewed order value | P5 |
+| **Repeat purchase rate** | How often a customer comes back | customers who order again within a fixed window after submitting their review ÷ customers with that full window inside the data; compared for unhappy vs not unhappy | P5 |
+
+**Rules for every KPI:**
+- **Count the right thing once:** each order counts once, even if it has several
+  reviews or payment rows (the exact rule is set in Phase 2).
+- **Say what's left out:** every KPI states its denominator (the "out of how many"),
+  so excluded orders are visible, not hidden.
+- **Dates, not times:** "on time" compares calendar days, ignoring time of day.
+- **Medians for waiting times:** a few extremely long deliveries would pull an
+  average up, so waiting times use the median (the middle value).
+- **No tiny groups:** rates are only compared for groups with enough orders; the
+  minimum is set in Phase 4.
+- **Window length:** the repeat-purchase window is set in Phase 3, after checking
+  how many customers have a full window before the data ends.
+- **Order total:** total paid for an order = the sum of its `payment_value` rows.
+
+No KPI values are calculated yet; they come from saved code in Phase 3.
 
 ## 4. Scope and limitations
 

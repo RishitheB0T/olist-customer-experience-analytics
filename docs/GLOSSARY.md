@@ -67,3 +67,8 @@ Format: **Term** — plain meaning — tiny example
 - **anchor (date)** — the moment a time window starts counting from — follow-up starts at `review_answer_timestamp`
 - **date vs timestamp** — a date is just the day; a timestamp also has the time of day — `2018-01-18` vs `2018-01-18 21:46:59`
 - **verify, don't assume** — check a rule in the data every time instead of trusting it holds — test "one deadline per order" in the pipeline
+- **KPI (key performance indicator)** — one of the few numbers a team watches to judge how things are going — unhappy order rate
+- **main KPI (north star)** — the single most important KPI that everything else supports — unhappy order rate in this project
+- **numerator / denominator** — the top and bottom of a fraction: "how many" out of "how many" — 1-2 star orders ÷ reviewed orders
+- **mean vs median** — mean = add up and divide; median = the middle value once sorted, not pulled by extreme values — waits of 2, 3, 40 days: mean 15, median 3
+- **breakdown (slice)** — the same KPI split by a group — unhappy rate by product category
