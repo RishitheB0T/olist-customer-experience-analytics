@@ -157,9 +157,58 @@ No KPI values are calculated yet; they come from saved code in Phase 3.
 
 ## 4. Scope and limitations
 
-_To do in Step 4._ Will include a **baseline**: total orders, order statuses,
-how many orders have a review, and which orders each analysis leaves out (and why).
+### What's in scope
+- **Data:** the 9 Olist CSV files. Kaggle describes them as orders from 2016 to
+  2018; the exact date range is checked in Phase 2.
+- **Main unit:** one order. Some patterns also work at item level (P3 delivery fee
+  share), seller level (P4) or customer level (P5).
+- **Who is included in each pattern:**
+
+| Pattern | Orders included |
+|---|---|
+| P1 | delivered orders with a review, a delivery date and a promised date |
+| P2 | P1 orders whose items share one hand-over deadline and that have a hand-over date |
+| P3 | reviewed orders with items (all orders, and on-time orders only) |
+| P4 | reviewed single-seller orders, sellers above a minimum order count |
+| P5 | reviewed orders (order value); customers with a full follow-up window (repeat purchase) |
+
+### Baseline (shown before P1-P5)
+Before any pattern, we show the whole picture, so nothing is silently left out:
+1. Total orders and the date range they cover.
+2. Orders by status (delivered, canceled, shipped, ...).
+3. Review coverage: orders with no review, one review, several reviews.
+4. Orders with no items.
+5. An **exclusion table** for each pattern: starting orders, how many each filter
+   removes and why, and how many are left.
 
 **Known data issues to handle in Phase 2:** some orders have more than one review,
 some review IDs appear on more than one order, and a few surveys were answered
 months after they were sent.
+
+### What's out of scope
+- **Things the data doesn't contain:** competitors' prices, discounts and offers,
+  marketing, customer service contacts, returns and refunds.
+- **Saying what a fix would achieve:** we find patterns and suggest tests; we
+  don't estimate the effect of a change.
+- **Advanced work (only after the core):** tagging review text (A1), predicting bad
+  reviews (A2), choosing sellers under a budget (A3).
+
+### Limitations
+1. **Patterns, not causes.** Late orders may differ in other ways too (region,
+   product size, seller), so a link with low scores doesn't show lateness is the reason.
+2. **Only customers who answered.** People who fill in a survey may feel differently
+   from those who don't, so results describe reviewed orders, not every order.
+3. **One review per order, not per item.** We can't always tell which product or
+   seller a review is about; multi-seller orders are handled separately.
+4. **Old, single-company data.** It ends in 2018 and covers one marketplace in
+   Brazil, so it may not describe Olist today or other markets.
+5. **Rough locations.** Locations are by zip code prefix, so distances are approximate.
+6. **Thin text.** Comments are in Portuguese and often empty, so issues like damaged
+   goods can only be checked roughly in the core project.
+7. **Few repeat customers.** The repeat-purchase comparison in P5 may have too few
+   customers to say much; if so, we report that.
+8. **Cleaning choices matter.** Rules for duplicate reviews, reused review IDs and
+   very late answers can change results slightly; every rule is written down in
+   `docs/data_quality_report.md`.
+9. **Some ratings may come before delivery.** Some surveys were sent before the order
+   arrived; these orders are flagged in P1.

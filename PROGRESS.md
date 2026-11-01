@@ -3,8 +3,6 @@
 ## Session 1 — 2026-11-01
 
 ### Done
-- Saved project rules as `CLAUDE.md`; renamed Codex file to `AGENTS.md`
-- Found the Codex VS Code extension install was cut off (only the "Codex Audio" helper installed)
 - Phase 0, Step 1: created folders (`data/raw`, `sql`, `src`, `notebooks`, `kaggle`, `dashboards`, `docs`, `tests`)
 - Phase 0, Step 2: checked tools: Python 3.14.7, Git 2.55, GitHub CLI 2.102 (logged in), PostgreSQL 18.6 (running)
 - Phase 0, Step 3: wrote `.gitignore` and `.env.example`
@@ -21,10 +19,9 @@
 - Phase 1, Step 2 (revised): checked a second AI's critique against the data and accepted most of it (delivery speed in P1, single-seller orders for P2/P4, prices within category, voucher dropped, careful P5 repeat window, baseline in scope)
 - Phase 1, Step 2 (verified): P2 filters on "one shared deadline" directly (0 single-seller orders had 2+ deadlines); P5 anchors on review_answer_timestamp; found duplicate reviews per order for Phase 2
 - Phase 1, Step 3: defined 11 KPIs (main: unhappy order rate = 1-2 stars ÷ reviewed orders) plus rules for counting
+- Phase 1, Step 4: wrote scope (who is in each pattern), baseline plan, out of scope, 9 limitations
 
 ### Next
-- Phase 1, Step 4: scope and limitations, including the baseline (section 4 of the brief)
+- Phase 1, Step 5: final review of the brief, README update, end of Phase 1
 
-### Open questions
-- Is the Codex extension (`openai.chatgpt`) installed now?
-- Power BI Desktop isn't installed yet (needed in Phase 5)
+

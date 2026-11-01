@@ -72,3 +72,8 @@ Format: **Term** — plain meaning — tiny example
 - **numerator / denominator** — the top and bottom of a fraction: "how many" out of "how many" — 1-2 star orders ÷ reviewed orders
 - **mean vs median** — mean = add up and divide; median = the middle value once sorted, not pulled by extreme values — waits of 2, 3, 40 days: mean 15, median 3
 - **breakdown (slice)** — the same KPI split by a group — unhappy rate by product category
+- **scope** — what the analysis covers and what it deliberately leaves out — competitor prices are out of scope
+- **limitation** — an honest weakness in the data or method that limits what you can conclude — only customers who answered the survey are seen
+- **exclusion table** — a step-by-step count of which rows each filter removed and why — 99,441 orders → only delivered → only reviewed → ...
+- **unit of analysis** — what one row stands for in a given analysis — one order, one seller or one customer
+- **non-response (self-selection)** — the people who answer a survey may differ from those who don't — happy customers may skip the survey
