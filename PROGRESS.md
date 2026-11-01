@@ -16,9 +16,10 @@
 - Phase 0, Step 9: Kaggle CLI 2.2.5 checked; logged in with `kaggle auth login`; can list the 9 Olist files
 - Phase 0, Step 10: downloaded 9 Olist CSVs into `data/raw/` (sizes match Kaggle); `src/check_raw_files.py` reads all 9 (orders: 99,441 rows)
 - **Phase 0 complete**; README updated with setup steps
+- Phase 1, Step 1: wrote the main question in `docs/problem_brief.md` (unhappy = 1-2 stars, working definition)
 
 ### Next
-- Phase 1, Step 1: start `docs/problem_brief.md` (the business question)
+- Phase 1, Step 2: choose 3-4 patterns to check ("is X linked with Y?")
 
 ### Open questions
 - Is the Codex extension (`openai.chatgpt`) installed now?

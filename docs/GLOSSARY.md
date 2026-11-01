@@ -48,3 +48,10 @@ Format: **Term** — plain meaning — tiny example
 - **DataFrame** — pandas' name for a table of data in Python — `df = pd.read_csv(path)`
 - **licence (CC BY-NC-SA 4.0)** — the rules for using the data: credit the source, no commercial use, share alike — written in our README
 - **unzip** — unpack a compressed .zip file into normal files — `--unzip` in the Kaggle download
+
+## Phase 1 — Business question
+
+- **business question** — the one question the whole analysis must answer for a real decision — "what is linked with unhappy customers?"
+- **stakeholder** — the person or team who will use your results to decide something — Olist's customer experience team
+- **problem brief** — a short document that pins down the question, what to check and how to measure it — `docs/problem_brief.md`
+- **working definition** — a first, provisional meaning we may refine later — "unhappy" = 1 or 2 stars
