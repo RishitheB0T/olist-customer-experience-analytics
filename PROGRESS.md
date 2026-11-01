@@ -14,9 +14,11 @@
 - Phase 0, Step 7: `requirements.txt` with 8 pinned packages, installed in `.venv`, imports checked
 - Phase 0, Step 8: psql added to user PATH; `.env` created (by me); database `olist` created via `src/create_database.py`, connection checked
 - Phase 0, Step 9: Kaggle CLI 2.2.5 checked; logged in with `kaggle auth login`; can list the 9 Olist files
+- Phase 0, Step 10: downloaded 9 Olist CSVs into `data/raw/` (sizes match Kaggle); `src/check_raw_files.py` reads all 9 (orders: 99,441 rows)
+- **Phase 0 complete**; README updated with setup steps
 
 ### Next
-- Phase 0, Step 10: download `olistbr/brazilian-ecommerce` into `data/raw/` and check the 9 files
+- Phase 1, Step 1: start `docs/problem_brief.md` (the business question)
 
 ### Open questions
 - Is the Codex extension (`openai.chatgpt`) installed now?

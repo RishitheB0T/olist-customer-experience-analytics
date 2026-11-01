@@ -3,13 +3,39 @@
 **Question:** what is linked with unhappy customers on Olist, a Brazilian online marketplace,
 and what could Olist test next to improve their experience?
 
-> 🚧 Work in progress: currently in **Phase 0 (Setup)**.
+> 🚧 Work in progress: Phase 0 (Setup) done; next is **Phase 1 (Business question)**.
 
 ## Data
 
 "Brazilian E-Commerce Public Dataset by Olist" on Kaggle
-(`olistbr/brazilian-ecommerce`). The data is **not** stored in this repo.
-Download steps will be added here in Phase 0.
+([`olistbr/brazilian-ecommerce`](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)),
+licence CC BY-NC-SA 4.0. The data is **not** stored in this repo: you download it yourself (below).
+
+9 CSV files, ~126 MB in total. The orders table has 99,441 rows
+(counted with `src/check_raw_files.py`).
+
+## How to set it up (Windows, PowerShell)
+
+Needs Python 3.14, PostgreSQL 18 and a free Kaggle account.
+
+```powershell
+# 1. Get the code and build the private Python setup
+git clone https://github.com/RishitheB0T/olist-customer-experience-analytics.git
+cd olist-customer-experience-analytics
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+
+# 2. Database settings: copy the template, then type your own password into .env
+Copy-Item .env.example .env
+.\.venv\Scripts\python.exe src\create_database.py
+
+# 3. Log in to Kaggle (opens a browser), then download the data
+.\.venv\Scripts\kaggle.exe auth login
+.\.venv\Scripts\kaggle.exe datasets download olistbr/brazilian-ecommerce -p data/raw --unzip
+
+# 4. Check all 9 files arrived
+.\.venv\Scripts\python.exe src\check_raw_files.py
+```
 
 ## Tech stack
 
@@ -19,8 +45,8 @@ Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, scipy, Jupyter, Power BI, Git/Gi
 
 | Phase | What | Status |
 |---|---|---|
-| 0 | Setup | In progress |
-| 1 | Business question & KPIs | — |
+| 0 | Setup | ✅ Done |
+| 1 | Business question & KPIs | Next |
 | 2 | Clean data (raw → clean → star schema) | — |
 | 3 | SQL + Python analysis | — |
 | 4 | Basic statistics | — |

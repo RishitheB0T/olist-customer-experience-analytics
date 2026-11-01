@@ -42,3 +42,9 @@ Format: **Term** — plain meaning — tiny example
 - **authentication** — proving to a service who you are — `kaggle auth login` in the browser
 - **access token** — a secret "digital key" a tool uses instead of your password; never share or commit it — stored in `C:\Users\<me>\.kaggle\`
 - **dataset slug** — a dataset's short ID on Kaggle: owner/name — `olistbr/brazilian-ecommerce`
+- **CSV file** — a plain-text table: one row per line, values separated by commas — `order_id,customer_id,...`
+- **row / column** — a row is one record (one order); a column is one field (e.g. order date) — orders has 99,441 rows and 8 columns
+- **shape** — a table's size as (rows, columns) — `df.shape` gives `(99441, 8)` for orders
+- **DataFrame** — pandas' name for a table of data in Python — `df = pd.read_csv(path)`
+- **licence (CC BY-NC-SA 4.0)** — the rules for using the data: credit the source, no commercial use, share alike — written in our README
+- **unzip** — unpack a compressed .zip file into normal files — `--unzip` in the Kaggle download
