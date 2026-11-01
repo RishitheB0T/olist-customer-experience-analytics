@@ -11,9 +11,10 @@
 - Phase 0, Step 4: started `PROGRESS.md`, `docs/GLOSSARY.md`, `README.md`
 - Phase 0, Step 5: git init, first commit, pushed to public GitHub repo `olist-customer-experience-analytics`
 
+- Phase 0, Step 6: created virtual environment `.venv` (Python 3.14.7); local folder stays `C:\projects\DataAnalysis`
+
 ### Next
-- Rename local folder `C:\projects\DataAnalysis` -> `C:\projects\olist-customer-experience-analytics` (close VS Code first)
-- Phase 0, Step 6: create the virtual environment
+- Phase 0, Step 7: write `requirements.txt` with pinned versions and install packages
 
 ### Open questions
 - Is the Codex extension (`openai.chatgpt`) installed now?

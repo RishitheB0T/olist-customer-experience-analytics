@@ -23,3 +23,6 @@ Format: **Term** — plain meaning — tiny example
 - **remote / origin** — the copy of the repo on GitHub; `origin` is its nickname — `origin` = github.com/RishitheB0T/...
 - **branch / main** — a line of history; `main` is the main one — we commit everything to `main`
 - **line endings (LF/CRLF)** — the invisible "new line" mark; Windows and Linux use different ones, Git converts them — harmless warning during `git add`
+- **activate (a virtual environment)** — switch your terminal to use the project's private Python — `.\.venv\Scripts\Activate.ps1` adds `(.venv)` to the prompt
+- **interpreter** — the program that reads and runs Python code — `.venv\Scripts\python.exe`
+- **execution policy** — a Windows rule about which PowerShell scripts may run — `RemoteSigned` lets local scripts run
