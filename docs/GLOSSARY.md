@@ -55,3 +55,8 @@ Format: **Term** — plain meaning — tiny example
 - **stakeholder** — the person or team who will use your results to decide something — Olist's customer experience team
 - **problem brief** — a short document that pins down the question, what to check and how to measure it — `docs/problem_brief.md`
 - **working definition** — a first, provisional meaning we may refine later — "unhappy" = 1 or 2 stars
+- **pattern (to check)** — a question about two things that might go together; not proof that one causes the other — "is late delivery linked with low scores?"
+- **comparing like with like** — comparing groups that are the same in an important way, so another difference doesn't mislead you — only on-time orders when checking product categories
+- **80/20 (Pareto) check** — testing whether a small share of items accounts for most of a result — do 20% of sellers get most bad reviews?
+- **repeat purchase** — a customer coming back to order again — the same `customer_unique_id` on two orders
+- **carrier** — the delivery company that moves the parcel from seller to customer — `order_delivered_carrier_date` is the hand-over

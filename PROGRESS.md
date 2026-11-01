@@ -17,9 +17,10 @@
 - Phase 0, Step 10: downloaded 9 Olist CSVs into `data/raw/` (sizes match Kaggle); `src/check_raw_files.py` reads all 9 (orders: 99,441 rows)
 - **Phase 0 complete**; README updated with setup steps
 - Phase 1, Step 1: wrote the main question in `docs/problem_brief.md` (unhappy = 1-2 stars, working definition)
+- Phase 1, Step 2: chose 5 patterns (delivery promise, delivery stages & routes, product & value, seller concentration, business impact); keeping GLOSSARY public
 
 ### Next
-- Phase 1, Step 2: choose 3-4 patterns to check ("is X linked with Y?")
+- Phase 1, Step 3: define the KPIs (section 3 of the brief)
 
 ### Open questions
 - Is the Codex extension (`openai.chatgpt`) installed now?
