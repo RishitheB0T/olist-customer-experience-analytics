@@ -16,3 +16,10 @@ Format: **Term** — plain meaning — tiny example
 - **.env file** — a private file holding environment variables like passwords; never uploaded — `.env` holds my real database password
 - **placeholder** — a fake value showing what goes in a spot — `your_password_here` in `.env.example`
 - **virtual environment** — a private Python setup for one project, so its packages don't clash with others — the `.venv/` folder
+- **Git** — a tool that saves snapshots of your project so you can go back in time — `git commit` saves one snapshot
+- **repository (repo)** — a project folder that Git tracks, with its full history — `olist-customer-experience-analytics`
+- **commit** — one saved snapshot of the project, with a short message — `chore(setup): add folders...`
+- **push** — upload your new commits to GitHub — `git push origin main`
+- **remote / origin** — the copy of the repo on GitHub; `origin` is its nickname — `origin` = github.com/RishitheB0T/...
+- **branch / main** — a line of history; `main` is the main one — we commit everything to `main`
+- **line endings (LF/CRLF)** — the invisible "new line" mark; Windows and Linux use different ones, Git converts them — harmless warning during `git add`
