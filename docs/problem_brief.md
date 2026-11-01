@@ -29,56 +29,74 @@ who didn't get it.
 
 Each pattern is a question about things that go together. It is not a claim
 that one causes the other. They build on each other: first *is* there a problem
-(P1), then *where* it happens (P2, P3, P4), then *why the business should care* (P5).
+(P1), then *where* it shows up (P2, P3, P4), then *why the business should care* (P5).
+Before any of them, a short baseline shows which orders each analysis includes
+(see section 4).
 
-### P1. Delivery promise
-**Is missing the promised delivery date linked with lower review scores, and do
-scores fall further the later the order arrives?**
-- *Why the team cares:* the promised date is something Olist sets and can change.
-- *Columns:* `order_delivered_customer_date`, `order_estimated_delivery_date`,
-  `order_purchase_timestamp`, `review_score`
-- *Skills shown:* date maths in SQL, grouping orders into lateness bands
-  (on time, 1-3 days late, 4-7, 8+), comparing groups.
+### P1. Delivery promise and speed
+**Is missing the promised delivery date linked with lower review scores, do scores
+fall further the later the order arrives, and is slow delivery linked with lower
+scores even when the promise was kept?**
+- *Why the team cares:* a broken promise and a slow delivery are different problems.
+  Looking at both stops "just promise later dates" from looking like a fix.
+- *Measures:* days late = delivered date - promised date (bands: on time or early,
+  1-3, 4-7, 8+ days late); delivery time = delivered date - purchase date.
+- *Columns:* `order_purchase_timestamp`, `order_delivered_customer_date`,
+  `order_estimated_delivery_date`, `review_score`
 
-### P2. Where in the delivery journey
-**Is lateness linked more with sellers handing orders over late, or with the
-carrier's travel time, and with which routes (seller state to customer state,
-distance)?**
-- *Why the team cares:* it tells them *who* to test a fix with: sellers or carriers.
-- *Columns:* `shipping_limit_date` (seller's hand-over deadline),
-  `order_delivered_carrier_date`, `order_delivered_customer_date`,
-  seller and customer zip prefixes, `geolocation_lat` / `geolocation_lng`
-- *Skills shown:* splitting one delay into stages, multi-table joins,
-  distance from latitude/longitude, route-level summaries.
+### P2. Delivery timing by stage and route
+**How does delivery time split between the seller handing the order to the
+carrier and the carrier's travel to the customer, and which stages and routes go
+together with late deliveries and lower scores?**
+- *Why the team cares:* it shows where in the journey time builds up, so a test
+  can start in the right place. It describes timing patterns; it does not decide
+  whose fault a delay was.
+- *Careful:* the hand-over deadline (`shipping_limit_date`) is stored per item, but
+  the hand-over date is stored per order. We start with single-seller orders,
+  where every item shares one deadline, and describe multi-seller orders separately.
+- *Careful:* compare travel times only between similar routes (same seller state
+  to customer state, similar distance) before reading anything into them.
+- *Columns:* `shipping_limit_date`, `order_delivered_carrier_date`,
+  `order_delivered_customer_date`, seller and customer zip prefixes,
+  `geolocation_lat` / `geolocation_lng`
 
-### P3. Product and value (when delivery went fine)
-**Among orders delivered on time, are some product categories, thin listings
-(few photos, short descriptions), high prices or high delivery fees compared with
-the price linked with lower scores?**
-- *Why the team cares:* looking only at on-time orders separates "the product
-  disappointed me" from "it came late".
+### P3. Product and value
+**Are some product categories, thin listings (few photos, short descriptions),
+prices that are high for their category, or delivery fees that are large compared
+with the price linked with lower scores, both overall and among on-time orders?**
+- *Why the team cares:* showing "all orders" next to "on-time orders only" helps
+  separate "the product disappointed me" from "it came late".
+- *Careful:* prices are compared within a category (an expensive fridge and an
+  expensive book mean different things).
+- *Careful:* photo count and description length are indirect clues about the
+  listing, not measures of product quality.
 - *Columns:* `product_category_name`, `product_photos_qty`,
-  `product_description_lenght`, `price`, `freight_value`, `payment_type` (voucher)
-- *Skills shown:* comparing like with like (holding delivery fixed), ratios
-  such as fee ÷ price.
+  `product_description_lenght`, `price`, `freight_value`
 
 ### P4. Seller concentration
-**Do a small share of sellers account for a large share of 1-2 star reviews, and
-do some sellers still get low scores even when they deliver on time?**
-- *Why the team cares:* a short list of sellers to work with first is a cheap,
-  testable action.
+**Do a small share of sellers account for a large share of 1-2 star reviews (by
+count and by rate), and do some sellers have high bad-review rates even when they
+deliver on time?**
+- *Why the team cares:* a short list of sellers is a cheap, testable place to start.
+  Counts show where most bad reviews sit; rates show who does worst for their size.
+- *Careful:* a review belongs to an order, not an item. If an order has items from
+  several sellers, we can't tell which seller the review is about. We start with
+  single-seller orders and label the rest as shared.
+- *Careful:* only sellers with enough orders are ranked, so small sellers don't give
+  noisy rates (the minimum is set in Phase 4).
 - *Columns:* `seller_id`, `review_score`, delivery dates
-- *Skills shown:* running totals with SQL window functions (the 80/20 check),
-  a minimum number of orders per seller so small sellers don't give noisy results.
 
 ### P5. Business impact
-**Are customers who leave a 1-2 star review less likely to order again, and how
-much order value is linked with unhappy orders?**
-- *Why the team cares:* it turns review scores into money and repeat business.
-- *Columns:* `customer_unique_id` (the same person across orders),
-  `order_purchase_timestamp`, `payment_value`, `review_score`
-- *Skills shown:* following customers over time (repeat purchase), revenue
-  summaries.
+**How much order value is associated with unhappy orders, and, if there is enough
+data, are customers who leave a 1-2 star review less likely to order again?**
+- *Why the team cares:* it puts review scores in business terms. This is order
+  value *associated with* unhappy orders, not money lost.
+- *Careful:* few customers in this data order more than once. So every customer
+  gets the same follow-up window, we count only orders placed after their review,
+  and customers whose window runs past the end of the data are left out. If too
+  few customers are left, we report that as a limitation instead of forcing a conclusion.
+- *Columns:* `customer_unique_id`, `order_purchase_timestamp`,
+  `review_creation_date`, `payment_value`, `review_score`
 
 **Ideas we can only check partly, or not at all, with this data:**
 - **Damaged or faulty products:** there is no "damaged" column. The only sign is the
@@ -86,7 +104,8 @@ much order value is linked with unhappy orders?**
   do a rough keyword check; proper tagging is advanced phase A1.
 - **Product quality:** there is no quality rating apart from the review score itself.
 - **Competitors' prices:** the dataset has only Olist's own prices.
-- **Offers and discounts:** there is no discount column; paying with a `voucher` is the closest sign.
+- **Offers and discounts:** there is no discount data. Paying by `voucher` is a
+  payment method; it doesn't show the customer got a lower price, so we don't use it.
 
 ## 3. KPIs
 
@@ -94,4 +113,5 @@ _To do in Step 3._
 
 ## 4. Scope and limitations
 
-_To do in Step 4._
+_To do in Step 4._ Will include a **baseline**: total orders, order statuses,
+how many orders have a review, and which orders each analysis leaves out (and why).

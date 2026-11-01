@@ -60,3 +60,7 @@ Format: **Term** — plain meaning — tiny example
 - **80/20 (Pareto) check** — testing whether a small share of items accounts for most of a result — do 20% of sellers get most bad reviews?
 - **repeat purchase** — a customer coming back to order again — the same `customer_unique_id` on two orders
 - **carrier** — the delivery company that moves the parcel from seller to customer — `order_delivered_carrier_date` is the hand-over
+- **baseline** — the starting picture everything else is compared with — total orders, statuses and review coverage before any filtering
+- **attribution** — deciding which thing a result belongs to — which seller an order's review is about
+- **count vs rate** — how many times something happens vs how often, relative to size — 50 bad reviews out of 5,000 orders (1%) vs 10 out of 20 (50%)
+- **follow-up window** — a fixed period after an event in which you watch what happens next — every customer gets the same window after their review

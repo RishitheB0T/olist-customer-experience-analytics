@@ -18,6 +18,7 @@
 - **Phase 0 complete**; README updated with setup steps
 - Phase 1, Step 1: wrote the main question in `docs/problem_brief.md` (unhappy = 1-2 stars, working definition)
 - Phase 1, Step 2: chose 5 patterns (delivery promise, delivery stages & routes, product & value, seller concentration, business impact); keeping GLOSSARY public
+- Phase 1, Step 2 (revised): checked a second AI's critique against the data and accepted most of it (delivery speed in P1, single-seller orders for P2/P4, prices within category, voucher dropped, careful P5 repeat window, baseline in scope)
 
 ### Next
 - Phase 1, Step 3: define the KPIs (section 3 of the brief)
