@@ -37,3 +37,8 @@ Format: **Term** — plain meaning — tiny example
 - **transaction** — a group of database changes that all succeed or all get cancelled — like a bank transfer: debit and credit together
 - **autocommit** — every command is saved immediately, with no transaction around it — needed for `CREATE DATABASE`
 - **idempotent** — safe to run again; a second run changes nothing — `create_database.py` says "already exists"
+- **Kaggle** — Google's free website for sharing datasets, notebooks and data competitions — where the Olist data lives
+- **CLI (command-line interface)** — a tool you control by typing commands instead of clicking — `kaggle datasets files ...`
+- **authentication** — proving to a service who you are — `kaggle auth login` in the browser
+- **access token** — a secret "digital key" a tool uses instead of your password; never share or commit it — stored in `C:\Users\<me>\.kaggle\`
+- **dataset slug** — a dataset's short ID on Kaggle: owner/name — `olistbr/brazilian-ecommerce`

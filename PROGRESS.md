@@ -13,9 +13,10 @@
 - Phase 0, Step 6: created virtual environment `.venv` (Python 3.14.7); local folder stays `C:\projects\DataAnalysis`
 - Phase 0, Step 7: `requirements.txt` with 8 pinned packages, installed in `.venv`, imports checked
 - Phase 0, Step 8: psql added to user PATH; `.env` created (by me); database `olist` created via `src/create_database.py`, connection checked
+- Phase 0, Step 9: Kaggle CLI 2.2.5 checked; logged in with `kaggle auth login`; can list the 9 Olist files
 
 ### Next
-- Phase 0, Step 9: Kaggle account + API token (by me), check Kaggle CLI version and --help
+- Phase 0, Step 10: download `olistbr/brazilian-ecommerce` into `data/raw/` and check the 9 files
 
 ### Open questions
 - Is the Codex extension (`openai.chatgpt`) installed now?
