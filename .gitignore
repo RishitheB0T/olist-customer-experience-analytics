@@ -1,0 +1,20 @@
+# --- Data: too big for GitHub, and anyone can download it from Kaggle ---
+data/
+
+# --- Secrets: never upload these ---
+.env
+kaggle.json
+
+# --- Python virtual environment (each person builds their own) ---
+.venv/
+venv/
+
+# --- Files Python and Jupyter create automatically ---
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# --- Junk files from the operating system and editors ---
+Thumbs.db
+.DS_Store
+*.log
