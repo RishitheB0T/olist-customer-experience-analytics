@@ -12,9 +12,10 @@
 - Phase 0, Step 5: git init, first commit, pushed to public GitHub repo `olist-customer-experience-analytics`
 
 - Phase 0, Step 6: created virtual environment `.venv` (Python 3.14.7); local folder stays `C:\projects\DataAnalysis`
+- Phase 0, Step 7: `requirements.txt` with 8 pinned packages, installed in `.venv`, imports checked
 
 ### Next
-- Phase 0, Step 7: write `requirements.txt` with pinned versions and install packages
+- Phase 0, Step 8: create the PostgreSQL database, put connection settings in `.env`, add psql to PATH
 
 ### Open questions
 - Is the Codex extension (`openai.chatgpt`) installed now?

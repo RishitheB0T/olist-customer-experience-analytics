@@ -1,0 +1,11 @@
+# Exact versions, so the project installs the same way on any machine.
+# Install with:  .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+
+pandas==3.1.0            # tables of data: load, clean, group, join
+SQLAlchemy==2.1.6        # one way for Python to talk to any database
+psycopg2-binary==2.9.13  # the PostgreSQL driver SQLAlchemy uses underneath
+duckdb==2.0.0            # small SQL database inside Python (for Kaggle notebooks)
+scipy==1.18.1            # statistics tests (Phase 4)
+jupyter==1.1.1           # notebooks: code + output + notes on one page
+python-dotenv==1.2.4     # reads passwords from .env so they stay out of the code
+kaggle==2.2.5            # Kaggle command-line tool: download data, push notebooks

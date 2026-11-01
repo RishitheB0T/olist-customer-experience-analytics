@@ -26,3 +26,8 @@ Format: **Term** — plain meaning — tiny example
 - **activate (a virtual environment)** — switch your terminal to use the project's private Python — `.\.venv\Scripts\Activate.ps1` adds `(.venv)` to the prompt
 - **interpreter** — the program that reads and runs Python code — `.venv\Scripts\python.exe`
 - **execution policy** — a Windows rule about which PowerShell scripts may run — `RemoteSigned` lets local scripts run
+- **requirements.txt** — the shopping list of Python packages a project needs — `pandas==3.1.0`
+- **pinning (a version)** — fixing an exact version so everyone installs the same thing — `==3.1.0` instead of just `pandas`
+- **driver** — the small piece of code that lets a program speak one database's language — `psycopg2` for PostgreSQL
+- **import** — loading a package into your Python code so you can use it (like Java's `import`) — `import pandas`
+- **dependency** — a package that another package needs to work, installed automatically — jupyter pulls in IPython
