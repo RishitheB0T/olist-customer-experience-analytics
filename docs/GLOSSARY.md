@@ -89,3 +89,9 @@ Format: **Term** — plain meaning — tiny example
 - **refactor** — change how code is organised without changing what it does — moving connection code into `src/db.py`
 - **DRY (don't repeat yourself)** — keep each piece of logic in one place so a fix happens once — one `get_engine()` for every script
 - **layer (raw / clean / analytics)** — stages the data passes through, each one more trustworthy and ready to use — raw = untouched copy of the CSVs
+- **schema (in a database)** — a named folder of tables inside one database — `raw.orders` is the table `orders` in the schema `raw`
+- **data type** — what kind of value a column holds: text, number, date... — raw layer: every column is `text`
+- **NULL** — the database's "no value here" mark; not zero and not empty text — an order with no review comment
+- **BOM** — an invisible mark some programs put at the start of a text file; it can sneak into the first column name — `﻿product_category_name`
+- **`if __name__ == "__main__":`** — "run this only when the file is run directly, not when imported" (like Java's `main`) — bottom of `load_raw.py`
+- **chunk (chunksize)** — sending data in batches instead of all at once — 10,000 rows per batch to PostgreSQL

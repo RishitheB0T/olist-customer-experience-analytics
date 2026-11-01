@@ -24,8 +24,9 @@
 - Phase 1, Step 5: final review of the brief (no cause-and-effect wording), project pitch added to README
 - **Phase 1 complete**
 - Phase 2, Step 1: shared connection helper `src/db.py` (`get_engine()`); scripts now run with `python -m src.<name>`
+- Phase 2, Step 2: `src/load_raw.py` loads all 9 CSVs into schema `raw` as text (52 columns), row counts match files; takes ~2.5 min (geolocation ~85s)
 
 ### Next
-- Phase 2, Step 2: load the 9 raw CSVs into PostgreSQL (raw layer, as text)
+- Phase 2, Step 3: profile the raw data (counts, missing values, duplicates, broken links)
 
 
