@@ -10,14 +10,13 @@
 - Phase 0, Step 3: wrote `.gitignore` and `.env.example`
 - Phase 0, Step 4: started `PROGRESS.md`, `docs/GLOSSARY.md`, `README.md`
 - Phase 0, Step 5: git init, first commit, pushed to public GitHub repo `olist-customer-experience-analytics`
-
 - Phase 0, Step 6: created virtual environment `.venv` (Python 3.14.7); local folder stays `C:\projects\DataAnalysis`
 - Phase 0, Step 7: `requirements.txt` with 8 pinned packages, installed in `.venv`, imports checked
+- Phase 0, Step 8: psql added to user PATH; `.env` created (by me); database `olist` created via `src/create_database.py`, connection checked
 
 ### Next
-- Phase 0, Step 8: create the PostgreSQL database, put connection settings in `.env`, add psql to PATH
+- Phase 0, Step 9: Kaggle account + API token (by me), check Kaggle CLI version and --help
 
 ### Open questions
 - Is the Codex extension (`openai.chatgpt`) installed now?
 - Power BI Desktop isn't installed yet (needed in Phase 5)
-- `psql` isn't on PATH yet (fix in Step 8)

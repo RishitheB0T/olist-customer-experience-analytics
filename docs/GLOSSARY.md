@@ -31,3 +31,9 @@ Format: **Term** — plain meaning — tiny example
 - **driver** — the small piece of code that lets a program speak one database's language — `psycopg2` for PostgreSQL
 - **import** — loading a package into your Python code so you can use it (like Java's `import`) — `import pandas`
 - **dependency** — a package that another package needs to work, installed automatically — jupyter pulls in IPython
+- **database** — an organised store of tables that many programs can read and write — our `olist` database in PostgreSQL
+- **engine (SQLAlchemy)** — Python's reusable "phone line" to a database — `create_engine(url)`
+- **connection URL** — one line holding where the database is and how to log in — `postgresql+psycopg2://user:***@localhost:5432/olist`
+- **transaction** — a group of database changes that all succeed or all get cancelled — like a bank transfer: debit and credit together
+- **autocommit** — every command is saved immediately, with no transaction around it — needed for `CREATE DATABASE`
+- **idempotent** — safe to run again; a second run changes nothing — `create_database.py` says "already exists"
