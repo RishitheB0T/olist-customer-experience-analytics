@@ -23,8 +23,9 @@
 - Phase 1, Step 4 (revised): split each pattern into measurements (all eligible orders) and rating comparisons (reviewed subset), both denominators stated
 - Phase 1, Step 5: final review of the brief (no cause-and-effect wording), project pitch added to README
 - **Phase 1 complete**
+- Phase 2, Step 1: shared connection helper `src/db.py` (`get_engine()`); scripts now run with `python -m src.<name>`
 
 ### Next
-- Phase 2, Step 1: show the Phase 2 roadmap, then load the raw CSVs into PostgreSQL (raw layer)
+- Phase 2, Step 2: load the 9 raw CSVs into PostgreSQL (raw layer, as text)
 
 

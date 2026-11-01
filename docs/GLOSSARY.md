@@ -79,3 +79,13 @@ Format: **Term** — plain meaning — tiny example
 - **non-response (self-selection)** — the people who answer a survey may differ from those who don't — happy customers may skip the survey
 - **eligible orders** — the orders that have everything a measurement needs — delivered orders with both a delivery date and a promised date
 - **subset** — a smaller group taken from a bigger one — reviewed orders are a subset of delivered orders
+
+## Phase 2 — Clean data
+
+- **function** — a named, reusable block of code that takes inputs and returns a result (like a Java method) — `get_engine("postgres")`
+- **module** — one Python file whose functions other files can import — `src/db.py` is the module `src.db`
+- **Python package (folder)** — a folder of modules, marked by `__init__.py` — `src/`
+- **python -m** — run a module by its dotted name from the project root, so `from src.db import ...` works — `python -m src.create_database`
+- **refactor** — change how code is organised without changing what it does — moving connection code into `src/db.py`
+- **DRY (don't repeat yourself)** — keep each piece of logic in one place so a fix happens once — one `get_engine()` for every script
+- **layer (raw / clean / analytics)** — stages the data passes through, each one more trustworthy and ready to use — raw = untouched copy of the CSVs

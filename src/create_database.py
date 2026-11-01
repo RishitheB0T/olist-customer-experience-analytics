@@ -1,26 +1,15 @@
 """Create the project's PostgreSQL database (safe to run more than once)."""
 import os
 
-from dotenv import load_dotenv
-from sqlalchemy import create_engine, text
-from sqlalchemy.engine import URL
+from sqlalchemy import text
 
-load_dotenv()  # read settings from .env into environment variables
+from src.db import get_engine
+
 db_name = os.environ["PGDATABASE"]
 
-# Connect to the built-in "postgres" database first: ours doesn't exist yet.
-# URL.create handles special characters in the password safely.
-url = URL.create(
-    "postgresql+psycopg2",
-    username=os.environ["PGUSER"],
-    password=os.environ["PGPASSWORD"],
-    host=os.environ["PGHOST"],
-    port=int(os.environ["PGPORT"]),
-    database="postgres",
-)
-
+# Connect to the built-in "postgres" database first: ours may not exist yet.
 # CREATE DATABASE can't run inside a transaction, so turn on autocommit.
-engine = create_engine(url, isolation_level="AUTOCOMMIT")
+engine = get_engine("postgres", isolation_level="AUTOCOMMIT")
 
 with engine.connect() as conn:
     exists = conn.execute(
