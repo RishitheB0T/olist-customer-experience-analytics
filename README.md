@@ -34,14 +34,14 @@ python -m venv .venv
 
 # 2. Database settings: copy the template, then type your own password into .env
 Copy-Item .env.example .env
-.\.venv\Scripts\python.exe src\create_database.py
+.\.venv\Scripts\python.exe -m src.create_database
 
 # 3. Log in to Kaggle (opens a browser), then download the data
 .\.venv\Scripts\kaggle.exe auth login
 .\.venv\Scripts\kaggle.exe datasets download olistbr/brazilian-ecommerce -p data/raw --unzip
 
 # 4. Check all 9 files arrived
-.\.venv\Scripts\python.exe src\check_raw_files.py
+.\.venv\Scripts\python.exe -m src.check_raw_files
 ```
 
 ## Tech stack
