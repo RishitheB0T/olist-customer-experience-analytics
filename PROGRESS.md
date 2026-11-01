@@ -20,6 +20,7 @@
 - Phase 1, Step 2 (verified): P2 filters on "one shared deadline" directly (0 single-seller orders had 2+ deadlines); P5 anchors on review_answer_timestamp; found duplicate reviews per order for Phase 2
 - Phase 1, Step 3: defined 11 KPIs (main: unhappy order rate = 1-2 stars ÷ reviewed orders) plus rules for counting
 - Phase 1, Step 4: wrote scope (who is in each pattern), baseline plan, out of scope, 9 limitations
+- Phase 1, Step 4 (revised): split each pattern into measurements (all eligible orders) and rating comparisons (reviewed subset), both denominators stated
 
 ### Next
 - Phase 1, Step 5: final review of the brief, README update, end of Phase 1

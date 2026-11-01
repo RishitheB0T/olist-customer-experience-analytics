@@ -129,12 +129,12 @@ slice these same KPIs; they are not new KPIs.
 |---|---|---|---|
 | **Unhappy order rate** (main KPI) | Out of reviewed orders, how many got 1-2 stars | orders with score 1-2 ÷ orders with a review | all |
 | **Average review score** | The typical star rating (1-5) | mean of `review_score` over reviewed orders | all |
-| **On-time delivery rate** | How often the promise was kept | delivered orders with delivered day ≤ promised day ÷ delivered orders | P1, P2 |
-| **Days late** | How late the late orders were | delivered day - promised day, for late orders; shown as bands (1-3, 4-7, 8+) | P1 |
-| **Delivery time** | How long the customer waited | median days from purchase to delivery | P1, P2 |
-| **Seller hand-over on time rate** | How often sellers gave the parcel to the carrier by the deadline | orders handed over on or before the shared deadline ÷ orders with one shared deadline and a hand-over date | P2 |
-| **Carrier travel time** | How long the carrier took | median days from hand-over to delivery, compared within similar routes | P2 |
-| **Delivery fee share** | How big the delivery fee is next to the price | `freight_value` ÷ `price`, per item | P3 |
+| **On-time delivery rate** | How often the promise was kept | delivered orders with delivered day ≤ promised day ÷ all delivered orders with both dates (reviewed or not) | P1, P2 |
+| **Days late** | How late the late orders were | delivered day - promised day, for all late delivered orders; shown as bands (1-3, 4-7, 8+) | P1 |
+| **Delivery time** | How long the customer waited | median days from purchase to delivery, all delivered orders | P1, P2 |
+| **Seller hand-over on time rate** | How often sellers gave the parcel to the carrier by the deadline | orders handed over on or before the shared deadline ÷ orders with one shared deadline and a hand-over date (reviewed or not) | P2 |
+| **Carrier travel time** | How long the carrier took | median days from hand-over to delivery, all eligible orders, compared within similar routes | P2 |
+| **Delivery fee share** | How big the delivery fee is next to the price | `freight_value` ÷ `price`, per item, all orders | P3 |
 | **Seller concentration** | Whether a few sellers hold most bad reviews | share of all unhappy reviews that belong to the sellers with the most unhappy reviews (single-seller orders, sellers above a minimum order count) | P4 |
 | **Order value in unhappy orders** | How much money passes through orders that end unhappy | total paid for unhappy orders, and its share of all reviewed order value | P5 |
 | **Repeat purchase rate** | How often a customer comes back | customers who order again within a fixed window after submitting their review ÷ customers with that full window inside the data; compared for unhappy vs not unhappy | P5 |
@@ -144,6 +144,9 @@ slice these same KPIs; they are not new KPIs.
   reviews or payment rows (the exact rule is set in Phase 2).
 - **Say what's left out:** every KPI states its denominator (the "out of how many"),
   so excluded orders are visible, not hidden.
+- **Two groups, both stated:** delivery KPIs use all eligible orders, reviewed or not;
+  any comparison with scores uses only the reviewed orders in that group. Results
+  give both counts.
 - **Dates, not times:** "on time" compares calendar days, ignoring time of day.
 - **Medians for waiting times:** a few extremely long deliveries would pull an
   average up, so waiting times use the median (the middle value).
@@ -162,15 +165,26 @@ No KPI values are calculated yet; they come from saved code in Phase 3.
   2018; the exact date range is checked in Phase 2.
 - **Main unit:** one order. Some patterns also work at item level (P3 delivery fee
   share), seller level (P4) or customer level (P5).
-- **Who is included in each pattern:**
+- **Who is included in each pattern.** Each pattern has two kinds of numbers,
+  using two different groups of orders:
+  - **Measurements** that don't involve ratings (e.g. how late orders were) use
+    **every eligible order**, reviewed or not.
+  - **Comparisons with ratings** (e.g. scores of late vs on-time orders) use only the
+    **reviewed** orders within that group.
 
-| Pattern | Orders included |
-|---|---|
-| P1 | delivered orders with a review, a delivery date and a promised date |
-| P2 | P1 orders whose items share one hand-over deadline and that have a hand-over date |
-| P3 | reviewed orders with items (all orders, and on-time orders only) |
-| P4 | reviewed single-seller orders, sellers above a minimum order count |
-| P5 | reviewed orders (order value); customers with a full follow-up window (repeat purchase) |
+  Every result says which group it uses and how many orders are in it.
+
+| Pattern | Measurements: all eligible orders | Comparisons with ratings: reviewed subset |
+|---|---|---|
+| P1 | delivered orders with a delivery date and a promised date | those P1 orders that have a review |
+| P2 | P1 orders whose items share one hand-over deadline and that have a hand-over date | those P2 orders that have a review |
+| P3 | all orders with items (delivery fee share, prices within category) | reviewed orders with items (all, and on-time only) |
+| P4 | single-seller orders (orders and on-time rate per seller) | reviewed single-seller orders, sellers above a minimum order count |
+| P5 | all orders (order value, how often customers order again) | reviewed orders; customers with a full follow-up window after their review |
+
+**Extra check:** comparing a delivery measurement across all orders with the same
+measurement on reviewed orders shows whether reviewed orders look different
+(see limitation 2).
 
 ### Baseline (shown before P1-P5)
 Before any pattern, we show the whole picture, so nothing is silently left out:
@@ -197,7 +211,9 @@ months after they were sent.
 1. **Patterns, not causes.** Late orders may differ in other ways too (region,
    product size, seller), so a link with low scores doesn't show lateness is the reason.
 2. **Only customers who answered.** People who fill in a survey may feel differently
-   from those who don't, so results describe reviewed orders, not every order.
+   from those who don't, so score results describe reviewed orders, not every order.
+   Delivery measurements use all orders, and comparing the two shows how different
+   reviewed orders are.
 3. **One review per order, not per item.** We can't always tell which product or
    seller a review is about; multi-seller orders are handled separately.
 4. **Old, single-company data.** It ends in 2018 and covers one marketplace in
