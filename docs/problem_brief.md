@@ -41,6 +41,9 @@ scores even when the promise was kept?**
   Looking at both stops "just promise later dates" from looking like a fix.
 - *Measures:* days late = delivered date - promised date (bands: on time or early,
   1-3, 4-7, 8+ days late); delivery time = delivered date - purchase date.
+- *Careful:* some surveys were sent before the order was delivered (when the
+  promised date came first), so some ratings may have been given before the parcel
+  arrived. These are flagged, not dropped.
 - *Columns:* `order_purchase_timestamp`, `order_delivered_customer_date`,
   `order_estimated_delivery_date`, `review_score`
 
@@ -52,8 +55,9 @@ together with late deliveries and lower scores?**
   can start in the right place. It describes timing patterns; it does not decide
   whose fault a delay was.
 - *Careful:* the hand-over deadline (`shipping_limit_date`) is stored per item, but
-  the hand-over date is stored per order. We start with single-seller orders,
-  where every item shares one deadline, and describe multi-seller orders separately.
+  the hand-over date is stored per order. So P2 keeps only orders whose items all
+  share one deadline, checked order by order in the pipeline rather than assumed
+  from the seller count. Orders with several deadlines are described separately.
 - *Careful:* compare travel times only between similar routes (same seller state
   to customer state, similar distance) before reading anything into them.
 - *Columns:* `shipping_limit_date`, `order_delivered_carrier_date`,
@@ -91,12 +95,16 @@ deliver on time?**
 data, are customers who leave a 1-2 star review less likely to order again?**
 - *Why the team cares:* it puts review scores in business terms. This is order
   value *associated with* unhappy orders, not money lost.
+- *Anchor:* the follow-up window starts at `review_answer_timestamp`, the moment
+  the customer submitted the rating. `review_creation_date` holds only a date and
+  matches when the survey was sent (usually about a day after delivery). The choice
+  matters: some customers placed a new order between getting the survey and answering it.
 - *Careful:* few customers in this data order more than once. So every customer
-  gets the same follow-up window, we count only orders placed after their review,
+  gets the same follow-up window, we count only orders placed after they submitted their review,
   and customers whose window runs past the end of the data are left out. If too
   few customers are left, we report that as a limitation instead of forcing a conclusion.
 - *Columns:* `customer_unique_id`, `order_purchase_timestamp`,
-  `review_creation_date`, `payment_value`, `review_score`
+  `review_answer_timestamp`, `payment_value`, `review_score`
 
 **Ideas we can only check partly, or not at all, with this data:**
 - **Damaged or faulty products:** there is no "damaged" column. The only sign is the
@@ -115,3 +123,7 @@ _To do in Step 3._
 
 _To do in Step 4._ Will include a **baseline**: total orders, order statuses,
 how many orders have a review, and which orders each analysis leaves out (and why).
+
+**Known data issues to handle in Phase 2:** some orders have more than one review,
+some review IDs appear on more than one order, and a few surveys were answered
+months after they were sent.

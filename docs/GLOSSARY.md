@@ -64,3 +64,6 @@ Format: **Term** — plain meaning — tiny example
 - **attribution** — deciding which thing a result belongs to — which seller an order's review is about
 - **count vs rate** — how many times something happens vs how often, relative to size — 50 bad reviews out of 5,000 orders (1%) vs 10 out of 20 (50%)
 - **follow-up window** — a fixed period after an event in which you watch what happens next — every customer gets the same window after their review
+- **anchor (date)** — the moment a time window starts counting from — follow-up starts at `review_answer_timestamp`
+- **date vs timestamp** — a date is just the day; a timestamp also has the time of day — `2018-01-18` vs `2018-01-18 21:46:59`
+- **verify, don't assume** — check a rule in the data every time instead of trusting it holds — test "one deadline per order" in the pipeline
