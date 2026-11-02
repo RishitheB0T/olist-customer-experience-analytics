@@ -147,3 +147,7 @@ Format: **Term** — plain meaning — tiny example
 - **join fan-out** — a join that copies rows because one side has several matches — joining orders to raw items gives one row per item, so summarise items per order first
 - **haversine formula** — the standard way to get the straight-line distance between two map points on the round Earth — São Paulo to Rio is about 360 km
 - **calendar days** — count of date changes, ignoring the time of day — 24 Nov 15:30 → 2 Dec 09:10 = 8 calendar days (not 7 days 17 hours)
+- **nullif(x, 0)** — gives NULL when x is 0, otherwise x; avoids a "division by zero" crash — `freight / nullif(price, 0)`
+- **IS DISTINCT FROM** — "not equal", but NULL vs NULL counts as equal (like `Objects.equals` in Java) — `NULL IS DISTINCT FROM NULL` is false
+- **bool_or** — true if at least one row in the group is true — `bool_or(handover_late)` = "was any item of this order late?"
+- **header / detail tables** — one table for the whole thing, one for its lines — `fact_order` (the receipt) and `fact_order_item` (each line on it)
