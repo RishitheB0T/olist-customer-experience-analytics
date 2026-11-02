@@ -93,3 +93,10 @@ FROM (VALUES
   ('orders in main period',      99092, (SELECT count(*) FROM analytics.fact_order WHERE in_main_period))
 ) AS t(what, expected, actual)
 WHERE expected <> actual;
+
+-- name: Reviews - is_unhappy is true exactly when the score is 1 or 2
+-- My first version, (score <= 2 AND NOT is_unhappy) OR (score > 2 AND is_unhappy), misses rows
+-- where only one side is NULL; IS DISTINCT FROM treats NULL as a normal value, so it catches those too.
+SELECT count(*) AS bad_rows
+FROM analytics.fact_order
+WHERE is_unhappy IS DISTINCT FROM (review_score <= 2);
