@@ -1,6 +1,8 @@
 """Run the whole pipeline with one command: raw -> clean -> analytics -> tests.
 
 Steps run in build order (each table is built after the tables it points at).
+All 8 SQL builds run in ONE transaction: if any of them fails, every clean and
+analytics table goes back to how it was before the run (nothing half-built).
 Stops at the first failure: a build error, or a failed test (exit code 1).
 Usage (from the project root):
     python -m src.pipeline              # everything, including the ~2.5 min raw load
@@ -10,6 +12,7 @@ import sys
 import time
 
 from src import build_sql, load_raw, run_tests
+from src.db import get_engine
 
 # Build order: each file only needs tables built by the files above it.
 BUILD_FILES = [
@@ -31,9 +34,11 @@ def main(skip_raw: bool = False) -> None:
     else:
         print("== 1. Raw layer: load the 9 CSV files ==")
         load_raw.main()
-    print("\n== 2. Clean and analytics layers ==")
-    for sql_file in BUILD_FILES:
-        build_sql.main(sql_file)
+    print("\n== 2. Clean and analytics layers (one transaction: all or nothing) ==")
+    with get_engine().begin() as conn:  # commit once at the end, or undo all 8 files on any error
+        for sql_file in BUILD_FILES:
+            build_sql.run_file(conn, sql_file)
+    print("All builds committed.")
     print("\n== 3. Data quality tests ==")
     run_tests.main()
     print(f"\nPipeline finished in {time.perf_counter() - start:.0f}s.")

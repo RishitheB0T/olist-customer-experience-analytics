@@ -8,20 +8,25 @@ import sys
 import time
 from pathlib import Path
 
-from sqlalchemy import text
+from sqlalchemy import Connection, text
 
 from src.db import get_engine
 from src.run_sql import read_queries
 
 
-def main(sql_file: str) -> None:
+def run_file(conn: Connection, sql_file: str) -> None:
+    """Run every block of one .sql file on an open connection; the caller owns the transaction."""
     print(f"Building: {sql_file}")
+    for name, sql in read_queries(Path(sql_file)):
+        start = time.perf_counter()
+        result = conn.execute(text(sql))
+        rows = f"{result.rowcount:,} rows" if result.rowcount >= 0 else ""  # -1 = not a row count
+        print(f"  {time.perf_counter() - start:5.1f}s {rows:>13}  {name}")  # numbers first, so they line up
+
+
+def main(sql_file: str) -> None:
     with get_engine().begin() as conn:  # begin(): commit at the end, or undo everything on error
-        for name, sql in read_queries(Path(sql_file)):
-            start = time.perf_counter()
-            result = conn.execute(text(sql))
-            rows = f"{result.rowcount:,} rows" if result.rowcount >= 0 else ""  # -1 = not a row count
-            print(f"  {name:55} {rows:>14}  {time.perf_counter() - start:5.1f}s")
+        run_file(conn, sql_file)
     print("Done.")
 
 
