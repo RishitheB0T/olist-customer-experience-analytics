@@ -29,8 +29,9 @@
 - Phase 2, Step 3A: reusable `src/run_sql.py` + `sql/profile_baseline.sql`; purchases 2016-09-04 to 2018-10-17 but months outside 2017-01..2018-08 are near-empty (Nov 2016 has none); 768 orders no review, 547 with 2-3; 775 orders without items (mostly unavailable/canceled)
 - Phase 2, Step 3B: `sql/profile_keys.sql` + `sql/profile_values.sql`. All IDs unique except review_id (814 extra rows; review_id+order_id unique). 96,096 people for 99,441 customer_ids. Issues: 610 products no category, 13 with untranslated category, 278 customer + 7 seller zips not in geolocation, 1 order no payment, 8 delivered orders no delivery date, 6 canceled with one, 166 handed over before purchase, 23 delivered before handover, 249 orders paid != items+fees by >1 BRL, 682 surveys answered 30+ days later
 - Phase 2, Step 3B (revised): key check now tests every part of two-column IDs and separates missing keys from duplicates; survey bands get "missing timestamp" + "answered before survey sent" first. Re-run: both 0, all recorded numbers unchanged
+- Phase 2, Step 4: `src/build_sql.py` (one transaction, rollback tested) + `sql/clean_orders_customers.sql`: real types, primary + foreign keys, 4 flags (8/6/166/23 = profiling), `in_main_period` (99,092 in, 349 out). Checks in `sql/check_clean_orders_customers.sql`
 
 ### Next
-- Phase 2, Step 4: clean layer for orders and customers (types, dates, flags)
+- Phase 2, Step 5: clean layer for items, payments, products, sellers (fix misspelled columns, English categories, order totals)
 
 

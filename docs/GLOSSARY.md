@@ -112,3 +112,9 @@ Format: **Term** — plain meaning — tiny example
 - **UNION ALL** — stack the results of several queries on top of each other — one table with a row per check
 - **FILTER (WHERE ...)** — count only the rows that match a condition, inside one query — `count(*) FILTER (WHERE price::numeric <= 0)`
 - **CASE WHEN** — SQL's if/else, giving a value per row — `CASE WHEN gap < 1 THEN 'under 1 day' ... END`
+- **CREATE TABLE ... AS SELECT** — build a new table from a query's result — `CREATE TABLE clean.orders AS SELECT ...`
+- **constraint** — a rule the database itself enforces, refusing data that breaks it — `PRIMARY KEY (order_id)` rejects duplicate orders
+- **foreign key** — a constraint saying "this column must match an ID in another table" — every `clean.orders.customer_id` must exist in `clean.customers`
+- **flag (boolean column)** — a true/false column marking rows with a problem, instead of deleting them — `flag_handover_before_purchase`
+- **coalesce** — use the first value that isn't NULL — `coalesce(check, false)`: a check on a missing date counts as false
+- **rollback** — undo everything a transaction did, as if it never happened — a failed build leaves no half-made tables
