@@ -154,3 +154,7 @@ Format: **Term** — plain meaning — tiny example
 - **data quality test** — a query that counts rows breaking a rule; 0 = PASS — `SELECT count(*) AS bad_rows FROM fact_order WHERE delivery_days < 0`
 - **regression test** — checks that numbers recorded earlier haven't changed by accident — "reviewed orders must still be 98,673"
 - **correlated subquery** — a subquery that re-runs once for every outer row (can be very slow) — `min(score)` per review took minutes; a GROUP BY + join took under a second
+- **pipeline** — a fixed series of steps that turns raw data into finished tables, run with one command — `python -m src.pipeline`: load raw → clean → analytics → tests
+- **command-line flag** — an extra word after a command that changes what it does — `--skip-raw` skips the slow raw load
+- **sys.argv** — the list of words typed after `python` when a script starts (like `String[] args` in Java's `main`) — `"--skip-raw" in sys.argv`
+- **fail fast** — stop at the first error instead of carrying on with broken data — the pipeline stops if a build or test fails

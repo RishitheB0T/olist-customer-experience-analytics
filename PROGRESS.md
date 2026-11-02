@@ -38,8 +38,9 @@
 - Phase 2, Step 9: `sql/analytics_fact_order.sql` (+ check). One row per order (99,441), money totals identical to clean. Order value = `paid_total` (items_total kept for P3; 249 mismatches flagged; of the 232 that paid more, 98.7% used instalments vs 51.5% overall). Delivery measures in calendar days (delivery, promised, days late, seller part, carrier part), hand-over late only for the 98,330 one-deadline orders, `flag_odd_deadline` for 10 orders (deadline 69+ days after purchase; median 6). Distance seller -> customer (haversine) for 96,904 single-seller orders: median 433.9 km, max 3,579.3 km. Negative days: seller 2 and carrier 20 (vs 166 and 23 flags, which use times, not days)
 - Phase 2, Step 10: `sql/analytics_fact_order_item.sql` (+ check). One row per item (112,650), price and fee totals equal fact_order. freight_share (fee ÷ price; no price is 0, min 0.85, CHECK price > 0), handover_late per item (each seller's own deadline; 1,194 items never handed over), flags: zero fee 383, odd deadline 12 items in the same 10 orders. Items agree with fact_order (item counts and one-deadline hand-over: 0 mismatches)
 - Phase 2, Step 11: `tests/data_quality.sql` (12 tests, each counts bad rows; 0 = PASS) + `src/run_tests.py` (PASS/FAIL per test, exit code 1 on any failure; failure path tested with a deliberately wrong test). 12 of 12 pass in ~3 s. Test 13 written with me: is_unhappy matches review_score (my AND/OR version missed rows where one side is NULL; final uses IS DISTINCT FROM). 13 of 13 pass. A correlated subquery made one test take minutes; rewritten as GROUP BY + join
+- Phase 2, Step 12: `src/pipeline.py` runs load_raw → 8 SQL builds in build order → 13 tests with one command. Full run 148 s, `--skip-raw` 35 s, both exit 0 and 13/13 pass. Stops at the first failure (tested with a missing file: exit 1, tests never ran)
 
 ### Next
-- Phase 2, Step 12: one command runs the whole pipeline
+- Phase 2, Step 13: `docs/data_quality_report.md`, README pipeline section, phase-end ritual
 
 
