@@ -163,3 +163,8 @@ Format: **Term** — plain meaning — tiny example
 - **data quality report** — a document listing each problem found in the data, how many rows have it, and the rule used — `docs/data_quality_report.md`
 - **.gitattributes** — a file telling Git how to treat files, e.g. which line endings to keep — `* text=auto eol=lf`
 - **mermaid** — a text format that GitHub draws as a diagram — the pipeline flowchart in README.md
+
+## Phase 3
+
+- **denominator** — the "out of how many" in a rate — unhappy rate = 14,533 unhappy ÷ 98,673 reviewed orders
+- **rate vs share** — rate = how common something is inside a group; share = how much of the total a group holds — not-delivered orders: unhappy rate 78.21%, share of all unhappy orders 15.29%

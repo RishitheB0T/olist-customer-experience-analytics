@@ -42,6 +42,7 @@
 - Phase 2, fixes: SQL builds now run in ONE transaction from `src/pipeline.py` (tested: a deliberate failure after dropping a table changed nothing); build output aligned; `.gitattributes` stops line-ending warnings; scratch evidence saved as `sql/report_data_quality.sql`; restored the lost "Open questions" section
 - Phase 2, Step 13: `docs/data_quality_report.md` (every problem, count and rule; numbers from saved code, checked automatically against fresh output), README pipeline section + diagram, brief updated (date range, data issues link)
 - **Phase 2 complete**: full pipeline from raw 156 s, 13 of 13 tests pass
+- Phase 3, Step 1: roadmap (10 steps) + `sql/questions/00_baseline.sql`. 99,441 orders (99,092 in main period), 98,673 reviewed (99.23%). Main KPI: unhappy rate 14.73% (14,533 of 98,673), avg score 4.08; main period 14.67%. Delivered 12.85% vs not delivered 78.21%; not-delivered orders hold 15.29% of all unhappy orders
 
 ### Next
-- Phase 3, Step 1: show the Phase 3 roadmap, then start the SQL business questions
+- Phase 3, Step 2: P1 delivery promise and speed (on-time rate, days late, unhappy rate late vs on time)
