@@ -119,3 +119,7 @@ Format: **Term** — plain meaning — tiny example
 - **coalesce** — use the first value that isn't NULL — `coalesce(check, false)`: a check on a missing date counts as false
 - **rollback** — undo everything a transaction did, as if it never happened — a failed build leaves no half-made tables
 - **NOT NULL** — a constraint saying a column can never be empty — `clean.orders.customer_id` must always be filled in (a foreign key alone lets NULL through)
+- **numeric(12, 2)** — an exact decimal number type: up to 12 digits, 2 after the point (no rounding errors, unlike float) — prices like `58.90`
+- **alias (AS)** — a new name for a column in a query's result — `product_name_lenght AS product_name_length` fixes a misspelling
+- **build order** — tables that point at others must be built after them — orders before order_items; products and sellers before order_items
+- **CASCADE (in DROP)** — also remove things that depend on what you drop, such as foreign keys pointing at it — `DROP TABLE clean.products CASCADE`
