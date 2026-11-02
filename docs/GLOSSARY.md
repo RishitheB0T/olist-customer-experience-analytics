@@ -143,3 +143,7 @@ Format: **Term** — plain meaning — tiny example
 - **grain** — what exactly one row of a table stands for — `dim_customer`: one row per customer_id (= one per order)
 - **date table** — one row per calendar day with handy columns (month, weekday...) — Power BI uses it for monthly trends
 - **generate_series** — PostgreSQL function that makes a list of values, e.g. every day between two dates — `generate_series('2016-01-01', '2018-12-31', interval '1 day')`
+- **temporary table (ON COMMIT DROP)** — a scratch table that disappears when the build's transaction ends — `order_item_summary` holds one row per order just long enough to build `fact_order`
+- **join fan-out** — a join that copies rows because one side has several matches — joining orders to raw items gives one row per item, so summarise items per order first
+- **haversine formula** — the standard way to get the straight-line distance between two map points on the round Earth — São Paulo to Rio is about 360 km
+- **calendar days** — count of date changes, ignoring the time of day — 24 Nov 15:30 → 2 Dec 09:10 = 8 calendar days (not 7 days 17 hours)
