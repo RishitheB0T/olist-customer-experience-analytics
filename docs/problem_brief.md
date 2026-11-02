@@ -96,8 +96,8 @@ data, are customers who leave a 1-2 star review less likely to order again?**
 - *Why the team cares:* it puts review scores in business terms. This is order
   value *associated with* unhappy orders, not money lost.
 - *Anchor:* the follow-up window starts at `review_answer_timestamp`, the moment
-  the customer submitted the rating. `review_creation_date` holds only a date and
-  matches when the survey was sent (usually about a day after delivery). The choice
+  the customer submitted the rating. `review_creation_date` is almost always just a date
+  (85 of 99,224 rows have a time) and matches when the survey was sent (usually about a day after delivery). The choice
   matters: some customers placed a new order between getting the survey and answering it.
 - *Careful:* few customers in this data order more than once. So every customer
   gets the same follow-up window, we count only orders placed after they submitted their review,
@@ -123,7 +123,8 @@ KPIs for each pattern. The breakdowns in P1-P5 (by category, seller, route...)
 slice these same KPIs; they are not new KPIs.
 
 **"Unhappy" (final definition):** an order whose review score is 1 or 2 stars.
-3 stars is treated as neutral, 4-5 as satisfied.
+3 stars is treated as neutral, 4-5 as satisfied. If an order has several reviews,
+its **lowest** score counts, because the project studies unhappy customers.
 
 | KPI | Plain meaning | How it's calculated | Used in |
 |---|---|---|---|
@@ -141,7 +142,7 @@ slice these same KPIs; they are not new KPIs.
 
 **Rules for every KPI:**
 - **Count the right thing once:** each order counts once, even if it has several
-  reviews or payment rows (the exact rule is set in Phase 2).
+  reviews or payment rows. Reviews: the lowest score; if tied, the latest answer.
 - **Say what's left out:** every KPI states its denominator (the "out of how many"),
   so excluded orders are visible, not hidden.
 - **Two groups, both stated:** delivery KPIs use all eligible orders, reviewed or not;
@@ -225,6 +226,7 @@ months after they were sent.
    customers to say much; if so, we report that.
 8. **Cleaning choices matter.** Rules for duplicate reviews, reused review IDs and
    very late answers can change results slightly; every rule is written down in
-   `docs/data_quality_report.md`.
+   `docs/data_quality_report.md`. For example, using each order's lowest score
+   counts 39 more unhappy orders than using its latest review would.
 9. **Some ratings may come before delivery.** Some surveys were sent before the order
    arrived; these orders are flagged in P1.

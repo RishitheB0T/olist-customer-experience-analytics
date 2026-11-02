@@ -123,3 +123,11 @@ Format: **Term** — plain meaning — tiny example
 - **alias (AS)** — a new name for a column in a query's result — `product_name_lenght AS product_name_length` fixes a misspelling
 - **build order** — tables that point at others must be built after them — orders before order_items; products and sellers before order_items
 - **CASCADE (in DROP)** — also remove things that depend on what you drop, such as foreign keys pointing at it — `DROP TABLE clean.products CASCADE`
+- **PARTITION BY** — splits rows into groups for a window function, without merging them — `row_number() OVER (PARTITION BY order_id ...)` numbers reviews 1, 2, 3 inside each order
+- **row_number()** — gives each row in a group a position 1, 2, 3... in a chosen order — sort by score, keep row 1 = the lowest score
+- **tie-breaker** — a second (and third) sort rule for rows that are equal on the first — two 1-star reviews: take the latest answer
+- **deterministic** — gives the same answer every time it runs — adding `review_id` as the last tie-breaker makes the choice deterministic
+- **CHECK constraint** — a rule the database tests on every row; rows that break it are rejected — `CHECK (review_score BETWEEN 1 AND 5)` rejects a 6
+- **partial unique index** — "no duplicates" applied only to rows that match a condition — one `is_order_review = true` per order; other reviews are free
+- **percentile_cont(0.5)** — the PostgreSQL way to get the median — `percentile_cont(0.5) WITHIN GROUP (ORDER BY days)`
+- **sensitivity check** — re-running a result with a different reasonable rule to see how much it changes — lowest vs latest review: 137 vs 98 unhappy orders

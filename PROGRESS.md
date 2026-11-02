@@ -33,7 +33,9 @@
 - Phase 2, Step 4 (revised): `clean.orders.customer_id` is NOT NULL as well as a foreign key; both tested by inserting bad rows on purpose (rejected, rolled back)
 - Phase 2, Step 5: `sql/clean_products_sellers.sql` + `sql/clean_items_payments.sql` (+ checks). Misspelled columns renamed, English categories (2 translated by us: 13 products; 610 "unknown"), money numeric(12,2) with totals identical to raw, keys + NOT NULL + foreign keys, flags (no category 610, 0 g 4, missing size 2, odd payments 11). Order totals (paid vs charged) decided in Step 7
 
+- Phase 2, Step 6: `sql/clean_reviews.sql` (+ `sql/check_clean_reviews.sql`). My rule for orders with 2+ reviews: **lowest score** (ties: latest answer, then review_id), marked by `is_order_review` (98,673 chosen = reviewed orders; all 99,224 rows kept). Sensitivity check: lowest vs latest = 137 vs 98 unhappy among the 547 multi-review orders. Reused review_ids (789 ids, 1,603 rows) always same person + same score, flagged. 5,127 surveys sent before delivery day, flagged. CHECK (score 1-5, answer after survey) + partial unique index (one chosen review per order), both tested by breaking them on purpose
+
 ### Next
-- Phase 2, Step 6: clean reviews (duplicate rules) and geolocation (one point per zip prefix)
+- Phase 2, Step 7: clean geolocation (one point per zip prefix; 278 customer + 7 seller zips have none)
 
 
