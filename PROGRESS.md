@@ -39,8 +39,13 @@
 - Phase 2, Step 10: `sql/analytics_fact_order_item.sql` (+ check). One row per item (112,650), price and fee totals equal fact_order. freight_share (fee ÷ price; no price is 0, min 0.85, CHECK price > 0), handover_late per item (each seller's own deadline; 1,194 items never handed over), flags: zero fee 383, odd deadline 12 items in the same 10 orders. Items agree with fact_order (item counts and one-deadline hand-over: 0 mismatches)
 - Phase 2, Step 11: `tests/data_quality.sql` (12 tests, each counts bad rows; 0 = PASS) + `src/run_tests.py` (PASS/FAIL per test, exit code 1 on any failure; failure path tested with a deliberately wrong test). 12 of 12 pass in ~3 s. Test 13 written with me: is_unhappy matches review_score (my AND/OR version missed rows where one side is NULL; final uses IS DISTINCT FROM). 13 of 13 pass. A correlated subquery made one test take minutes; rewritten as GROUP BY + join
 - Phase 2, Step 12: `src/pipeline.py` runs load_raw → 8 SQL builds in build order → 13 tests with one command. Full run 148 s, `--skip-raw` 35 s, both exit 0 and 13/13 pass. Stops at the first failure (tested with a missing file: exit 1, tests never ran)
+- Phase 2, fixes: SQL builds now run in ONE transaction from `src/pipeline.py` (tested: a deliberate failure after dropping a table changed nothing); build output aligned; `.gitattributes` stops line-ending warnings; scratch evidence saved as `sql/report_data_quality.sql`; restored the lost "Open questions" section
+- Phase 2, Step 13: `docs/data_quality_report.md` (every problem, count and rule; numbers from saved code, checked automatically against fresh output), README pipeline section + diagram, brief updated (date range, data issues link)
+- **Phase 2 complete**: full pipeline from raw 156 s, 13 of 13 tests pass
 
 ### Next
-- Phase 2, Step 13: `docs/data_quality_report.md`, README pipeline section, phase-end ritual
+- Phase 3, Step 1: show the Phase 3 roadmap, then start the SQL business questions
 
-
+### Open questions
+- Is the Codex extension (`openai.chatgpt`) installed now?
+- Power BI Desktop isn't installed yet (needed in Phase 5)

@@ -158,3 +158,8 @@ Format: **Term** — plain meaning — tiny example
 - **command-line flag** — an extra word after a command that changes what it does — `--skip-raw` skips the slow raw load
 - **sys.argv** — the list of words typed after `python` when a script starts (like `String[] args` in Java's `main`) — `"--skip-raw" in sys.argv`
 - **fail fast** — stop at the first error instead of carrying on with broken data — the pipeline stops if a build or test fails
+- **atomic (all-or-nothing)** — a group of changes that either all happen or none do — the 8 SQL builds run in one transaction; one failure undoes all of them
+- **reproducible** — anyone can rerun the saved code and get the same numbers — every number in the data quality report comes from a saved .sql file
+- **data quality report** — a document listing each problem found in the data, how many rows have it, and the rule used — `docs/data_quality_report.md`
+- **.gitattributes** — a file telling Git how to treat files, e.g. which line endings to keep — `* text=auto eol=lf`
+- **mermaid** — a text format that GitHub draws as a diagram — the pipeline flowchart in README.md
