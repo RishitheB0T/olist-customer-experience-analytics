@@ -137,3 +137,9 @@ Format: **Term** — plain meaning — tiny example
 - **exact duplicate** — a row that is a perfect copy of another; it adds no new information — the same prefix and point listed 10 times
 - **outlier** — a value far away from the rest, often an error — one point 2,000 km from all the others in its prefix
 - **robust (statistic)** — barely moved by a few outliers — the median is robust, the average is not
+- **star schema** — one central fact table linked to several dimension tables, like a star — `fact_order` in the middle, customer / seller / product / date around it
+- **fact table** — one row per event, holding the numbers you add up or average — one row per order with delivery days and review score
+- **dimension table** — describes the who, what, where or when of a fact — `dim_customer` holds each customer's city, state and map point
+- **grain** — what exactly one row of a table stands for — `dim_customer`: one row per customer_id (= one per order)
+- **date table** — one row per calendar day with handy columns (month, weekday...) — Power BI uses it for monthly trends
+- **generate_series** — PostgreSQL function that makes a list of values, e.g. every day between two dates — `generate_series('2016-01-01', '2018-12-31', interval '1 day')`
