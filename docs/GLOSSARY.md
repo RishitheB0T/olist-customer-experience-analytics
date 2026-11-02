@@ -118,3 +118,4 @@ Format: **Term** — plain meaning — tiny example
 - **flag (boolean column)** — a true/false column marking rows with a problem, instead of deleting them — `flag_handover_before_purchase`
 - **coalesce** — use the first value that isn't NULL — `coalesce(check, false)`: a check on a missing date counts as false
 - **rollback** — undo everything a transaction did, as if it never happened — a failed build leaves no half-made tables
+- **NOT NULL** — a constraint saying a column can never be empty — `clean.orders.customer_id` must always be filled in (a foreign key alone lets NULL through)

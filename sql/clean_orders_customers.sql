@@ -48,5 +48,9 @@ FROM raw.orders;
 -- name: Rule - order_id is unique
 ALTER TABLE clean.orders ADD PRIMARY KEY (order_id);
 
+-- name: Rule - every order has a customer_id
+-- Needed as well as the foreign key below: a foreign key lets an empty (NULL) value through.
+ALTER TABLE clean.orders ALTER COLUMN customer_id SET NOT NULL;
+
 -- name: Rule - every order points at a real customer
 ALTER TABLE clean.orders ADD FOREIGN KEY (customer_id) REFERENCES clean.customers (customer_id);
