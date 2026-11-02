@@ -37,8 +37,10 @@
 - Phase 2, Step 8: `sql/analytics_dims.sql` (+ check). Schema `analytics` with dim_customer (99,441), dim_seller (3,095), dim_product (32,951, adds volume), dim_date (1,096 days = whole years 2016-2018; 608 in main period). Locations joined from clean.geolocation (279 customers, 7 sellers without). All purchase / delivered / promised days fall inside dim_date
 - Phase 2, Step 9: `sql/analytics_fact_order.sql` (+ check). One row per order (99,441), money totals identical to clean. Order value = `paid_total` (items_total kept for P3; 249 mismatches flagged; of the 232 that paid more, 98.7% used instalments vs 51.5% overall). Delivery measures in calendar days (delivery, promised, days late, seller part, carrier part), hand-over late only for the 98,330 one-deadline orders, `flag_odd_deadline` for 10 orders (deadline 69+ days after purchase; median 6). Distance seller -> customer (haversine) for 96,904 single-seller orders: median 433.9 km, max 3,579.3 km. Negative days: seller 2 and carrier 20 (vs 166 and 23 flags, which use times, not days)
 - Phase 2, Step 10: `sql/analytics_fact_order_item.sql` (+ check). One row per item (112,650), price and fee totals equal fact_order. freight_share (fee ÷ price; no price is 0, min 0.85, CHECK price > 0), handover_late per item (each seller's own deadline; 1,194 items never handed over), flags: zero fee 383, odd deadline 12 items in the same 10 orders. Items agree with fact_order (item counts and one-deadline hand-over: 0 mismatches)
+- Phase 2, Step 11: `tests/data_quality.sql` (12 tests, each counts bad rows; 0 = PASS) + `src/run_tests.py` (PASS/FAIL per test, exit code 1 on any failure; failure path tested with a deliberately wrong test). 12 of 12 pass in ~3 s. A correlated subquery made one test take minutes; rewritten as GROUP BY + join
 
 ### Next
-- Phase 2, Step 11: automated data quality tests in `tests/`
+- Phase 2, Step 11 (finish): add my own test (is_unhappy matches review_score) to `tests/data_quality.sql`
+- Phase 2, Step 12: one command runs the whole pipeline
 
 

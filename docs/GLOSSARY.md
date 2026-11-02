@@ -151,3 +151,6 @@ Format: **Term** — plain meaning — tiny example
 - **IS DISTINCT FROM** — "not equal", but NULL vs NULL counts as equal (like `Objects.equals` in Java) — `NULL IS DISTINCT FROM NULL` is false
 - **bool_or** — true if at least one row in the group is true — `bool_or(handover_late)` = "was any item of this order late?"
 - **header / detail tables** — one table for the whole thing, one for its lines — `fact_order` (the receipt) and `fact_order_item` (each line on it)
+- **data quality test** — a query that counts rows breaking a rule; 0 = PASS — `SELECT count(*) AS bad_rows FROM fact_order WHERE delivery_days < 0`
+- **regression test** — checks that numbers recorded earlier haven't changed by accident — "reviewed orders must still be 98,673"
+- **correlated subquery** — a subquery that re-runs once for every outer row (can be very slow) — `min(score)` per review took minutes; a GROUP BY + join took under a second
