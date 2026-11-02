@@ -45,7 +45,3 @@
 
 ### Next
 - Phase 3, Step 1: show the Phase 3 roadmap, then start the SQL business questions
-
-### Open questions
-- Is the Codex extension (`openai.chatgpt`) installed now?
-- Power BI Desktop isn't installed yet (needed in Phase 5)
