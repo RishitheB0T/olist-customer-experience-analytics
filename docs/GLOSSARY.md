@@ -131,3 +131,9 @@ Format: **Term** — plain meaning — tiny example
 - **partial unique index** — "no duplicates" applied only to rows that match a condition — one `is_order_review = true` per order; other reviews are free
 - **percentile_cont(0.5)** — the PostgreSQL way to get the median — `percentile_cont(0.5) WITHIN GROUP (ORDER BY days)`
 - **sensitivity check** — re-running a result with a different reasonable rule to see how much it changes — lowest vs latest review: 137 vs 98 unhappy orders
+- **zip code prefix** — the first 5 digits of a Brazilian postcode; covers a small area, not one house — `01310` is part of São Paulo
+- **latitude / longitude (lat / lng)** — a map position: north-south and east-west, in degrees — São Paulo is about lat -23.5, lng -46.6
+- **bounding box** — a rough rectangle on the map used to catch impossible points — a lat of 45 is far outside Brazil's box
+- **exact duplicate** — a row that is a perfect copy of another; it adds no new information — the same prefix and point listed 10 times
+- **outlier** — a value far away from the rest, often an error — one point 2,000 km from all the others in its prefix
+- **robust (statistic)** — barely moved by a few outliers — the median is robust, the average is not

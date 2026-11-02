@@ -31,11 +31,12 @@
 - Phase 2, Step 3B (revised): key check now tests every part of two-column IDs and separates missing keys from duplicates; survey bands get "missing timestamp" + "answered before survey sent" first. Re-run: both 0, all recorded numbers unchanged
 - Phase 2, Step 4: `src/build_sql.py` (one transaction, rollback tested) + `sql/clean_orders_customers.sql`: real types, primary + foreign keys, 4 flags (8/6/166/23 = profiling), `in_main_period` (99,092 in, 349 out). Checks in `sql/check_clean_orders_customers.sql`
 - Phase 2, Step 4 (revised): `clean.orders.customer_id` is NOT NULL as well as a foreign key; both tested by inserting bad rows on purpose (rejected, rolled back)
-- Phase 2, Step 5: `sql/clean_products_sellers.sql` + `sql/clean_items_payments.sql` (+ checks). Misspelled columns renamed, English categories (2 translated by us: 13 products; 610 "unknown"), money numeric(12,2) with totals identical to raw, keys + NOT NULL + foreign keys, flags (no category 610, 0 g 4, missing size 2, odd payments 11). Order totals (paid vs charged) decided in Step 7
-
+- Phase 2, Step 5: `sql/clean_products_sellers.sql` + `sql/clean_items_payments.sql` (+ checks). Misspelled columns renamed, English categories (2 translated by us: 13 products; 610 "unknown"), money numeric(12,2) with totals identical to raw, keys + NOT NULL + foreign keys, flags (no category 610, 0 g 4, missing size 2, odd payments 11). Order totals (paid vs charged) decided in the analytics step (Step 8)
 - Phase 2, Step 6: `sql/clean_reviews.sql` (+ `sql/check_clean_reviews.sql`). My rule for orders with 2+ reviews: **lowest score** (ties: latest answer, then review_id), marked by `is_order_review` (98,673 chosen = reviewed orders; all 99,224 rows kept). Sensitivity check: lowest vs latest = 137 vs 98 unhappy among the 547 multi-review orders. Reused review_ids (789 ids, 1,603 rows) always same person + same score, flagged. 5,127 surveys sent before delivery day, flagged. CHECK (score 1-5, answer after survey) + partial unique index (one chosen review per order), both tested by breaking them on purpose
+- Phase 2, Step 7: `sql/clean_geolocation.sql` (+ check). One point per zip prefix = median of distinct points inside Brazil's box. 1,000,163 rows -> 720,154 distinct points -> 720,121 used; 19,015 -> 19,010 prefixes (5 had every point outside Brazil). `spread_km` per prefix: median 1.5 km, 428 over 50 km, 88 over 500 km, 1,233 with one point. Correction: profiling's "278 customer zips" = 278 customers in 157 prefixes (sellers: 7 in 7)
 
 ### Next
-- Phase 2, Step 7: clean geolocation (one point per zip prefix; 278 customer + 7 seller zips have none)
+- Phase 2, Step 7 (finish): add my own query for customers and sellers with no location to `sql/check_clean_geolocation.sql`
+- Phase 2, Step 8: analytics star schema (decide order totals: paid vs items + fees)
 
 
