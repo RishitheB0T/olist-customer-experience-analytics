@@ -95,3 +95,6 @@ Format: **Term** — plain meaning — tiny example
 - **BOM** — an invisible mark some programs put at the start of a text file; it can sneak into the first column name — `﻿product_category_name`
 - **`if __name__ == "__main__":`** — "run this only when the file is run directly, not when imported" (like Java's `main`) — bottom of `load_raw.py`
 - **chunk (chunksize)** — sending data in batches instead of all at once — 10,000 rows per batch to PostgreSQL
+- **fail fast** — stop at the first sign of a problem instead of carrying on with bad data — `load_raw.py` stops if a row count doesn't match
+- **exit code** — the number a program returns when it finishes: 0 = success, anything else = error — `SystemExit("Stopping: ...")` gives exit code 1
+- **config (settings file)** — one file holding shared settings that many scripts use — `src/config.py` lists the 9 required files
