@@ -27,8 +27,9 @@
 - Phase 2, Step 2: `src/load_raw.py` loads all 9 CSVs into schema `raw` as text (52 columns), row counts match files; takes ~2.5 min (geolocation ~85s)
 - Phase 2, Step 2 (revised): shared `src/config.py` (9 required files); load_raw checks all files first and stops with exit code 1 on any row-count mismatch (both stops tested on purpose)
 - Phase 2, Step 3A: reusable `src/run_sql.py` + `sql/profile_baseline.sql`; purchases 2016-09-04 to 2018-10-17 but months outside 2017-01..2018-08 are near-empty (Nov 2016 has none); 768 orders no review, 547 with 2-3; 775 orders without items (mostly unavailable/canceled)
+- Phase 2, Step 3B: `sql/profile_keys.sql` + `sql/profile_values.sql`. All IDs unique except review_id (814 extra rows; review_id+order_id unique). 96,096 people for 99,441 customer_ids. Issues: 610 products no category, 13 with untranslated category, 278 customer + 7 seller zips not in geolocation, 1 order no payment, 8 delivered orders no delivery date, 6 canceled with one, 166 handed over before purchase, 23 delivered before handover, 249 orders paid != items+fees by >1 BRL, 682 surveys answered 30+ days later
 
 ### Next
-- Phase 2, Step 3B: profile data quality (missing values, duplicate keys, broken links)
+- Phase 2, Step 4: clean layer for orders and customers (types, dates, flags)
 
 

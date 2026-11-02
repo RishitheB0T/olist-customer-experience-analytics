@@ -105,3 +105,10 @@ Format: **Term** — plain meaning — tiny example
 - **NOT EXISTS** — keep a row only if a matching row does NOT exist in another table — orders that have no items
 - **cast (::)** — convert a value from one type to another — `'2017-10-02 10:56:33'::timestamp`
 - **date_trunc** — cut a date-time down to the start of its month/day/year — `date_trunc('month', ...)` gives 2017-10-01
+- **profiling** — measuring raw data (counts, blanks, duplicates, odd values) before trusting it — `sql/profile_values.sql`
+- **primary key** — the column whose value is different in every row, so it identifies the row — `order_id` in `orders`
+- **composite key** — a key made of two or more columns together — `order_id + order_item_id` in `order_items`
+- **broken link (orphan row)** — a row pointing at an ID that doesn't exist in the other table — a product category with no English translation
+- **UNION ALL** — stack the results of several queries on top of each other — one table with a row per check
+- **FILTER (WHERE ...)** — count only the rows that match a condition, inside one query — `count(*) FILTER (WHERE price::numeric <= 0)`
+- **CASE WHEN** — SQL's if/else, giving a value per row — `CASE WHEN gap < 1 THEN 'under 1 day' ... END`
