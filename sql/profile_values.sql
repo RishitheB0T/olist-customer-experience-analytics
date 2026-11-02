@@ -61,10 +61,25 @@ SELECT count(*) AS orders_with_both,
 FROM paid JOIN charged USING (order_id);
 
 -- name: Days from survey sent to answered
-SELECT CASE WHEN gap < 1 THEN 'a: under 1 day' WHEN gap < 7 THEN 'b: 1-6 days'
-            WHEN gap < 30 THEN 'c: 7-29 days' WHEN gap < 90 THEN 'd: 30-89 days'
-            ELSE 'e: 90+ days' END AS answered_after, count(*) AS reviews
-FROM (SELECT extract(epoch FROM review_answer_timestamp::timestamp - review_creation_date::timestamp) / 86400 AS gap
-      FROM raw.order_reviews) s
-GROUP BY 1
-ORDER BY 1;
+-- Problem rows get their own bands FIRST, so they can't slip into a normal band:
+-- a missing timestamp gives a NULL gap, and NULL would otherwise fall into the ELSE band.
+-- The VALUES list shows every band, even ones with 0 reviews.
+WITH gaps AS (
+    SELECT extract(epoch FROM review_answer_timestamp::timestamp - review_creation_date::timestamp) / 86400 AS gap
+    FROM raw.order_reviews
+), banded AS (
+    SELECT CASE WHEN gap IS NULL THEN 1  -- either timestamp missing
+                WHEN gap < 0     THEN 2  -- answered before the survey was sent
+                WHEN gap < 1     THEN 3
+                WHEN gap < 7     THEN 4
+                WHEN gap < 30    THEN 5
+                WHEN gap < 90    THEN 6
+                ELSE                  7 END AS band
+    FROM gaps
+)
+SELECT b.label AS answered_after, count(banded.band) AS reviews
+FROM (VALUES (1, 'missing timestamp'), (2, 'answered before survey sent'), (3, 'under 1 day'),
+             (4, '1-6 days'), (5, '7-29 days'), (6, '30-89 days'), (7, '90+ days')) AS b(band, label)
+LEFT JOIN banded ON banded.band = b.band
+GROUP BY b.band, b.label
+ORDER BY b.band;
