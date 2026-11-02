@@ -10,7 +10,7 @@ is a short list of changes **worth testing**, each with a suggested way to test 
 things would be worth testing a fix for first?
 Full plan: patterns, KPIs, scope and limitations in [docs/problem_brief.md](docs/problem_brief.md).
 
-> 🚧 Work in progress: Phases 0-1 done; next is **Phase 2 (Clean data)**.
+> 🚧 Work in progress: Phases 0-2 done; next is **Phase 3 (SQL + Python analysis)**.
 
 ## Data
 
@@ -42,7 +42,40 @@ Copy-Item .env.example .env
 
 # 4. Check all 9 files arrived
 .\.venv\Scripts\python.exe -m src.check_raw_files
+
+# 5. Build everything (raw -> clean -> analytics) and run the data quality tests (~2.5 min)
+.\.venv\Scripts\python.exe -m src.pipeline
 ```
+
+## Pipeline
+
+One command, `python -m src.pipeline`, rebuilds the whole database in PostgreSQL and then tests it.
+Add `--skip-raw` to reuse the raw tables already loaded (~35 s instead of ~2.5 min).
+
+```mermaid
+flowchart LR
+    A["9 CSV files<br/>data/raw/"] -->|src/load_raw.py| B[("raw<br/>exact copy, all text")]
+    B -->|sql/clean_*.sql| C[("clean<br/>real types, keys, flags")]
+    C -->|sql/analytics_*.sql| D[("analytics<br/>star schema")]
+    D -->|tests/data_quality.sql| E{"13 tests<br/>PASS / FAIL"}
+```
+
+- **raw:** the CSV files as they are; every row count is checked against its file.
+- **clean:** real data types, primary and foreign keys, and `flag_...` columns for odd rows. **Nothing is deleted.**
+- **analytics:** a star schema for analysis and Power BI. All 8 SQL builds run in one transaction: if one fails,
+  nothing changes.
+- **tests:** each test counts rows that break a rule; the pipeline stops if any test fails.
+
+| Analytics table | One row per |
+|---|---|
+| `fact_order` | order: delivery days, lateness, amount paid, the chosen review, distance |
+| `fact_order_item` | item: price, delivery fee and its share of the price, the seller's own hand-over |
+| `dim_customer`, `dim_seller` | customer / seller, with city, state and map point |
+| `dim_product` | product, with English category and size |
+| `dim_date` | calendar day (2016-2018) |
+
+Every problem found in the data, and the rule used for it, is in
+[docs/data_quality_report.md](docs/data_quality_report.md).
 
 ## Tech stack
 
@@ -54,8 +87,8 @@ Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, scipy, Jupyter, Power BI, Git/Gi
 |---|---|---|
 | 0 | Setup | ✅ Done |
 | 1 | Business question & KPIs | ✅ Done |
-| 2 | Clean data (raw → clean → star schema) | Next |
-| 3 | SQL + Python analysis | — |
+| 2 | Clean data (raw → clean → star schema) | ✅ Done |
+| 3 | SQL + Python analysis | Next |
 | 4 | Basic statistics | — |
 | 5 | Power BI dashboard | — |
 | 6 | Recommendations (memo + slides) | — |
@@ -64,11 +97,11 @@ Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, scipy, Jupyter, Power BI, Git/Gi
 
 ```
 data/raw/     raw CSVs (not on GitHub)
-sql/          SQL scripts
-src/          Python pipeline code
+sql/          SQL scripts: profile_* (raw checks), clean_* and analytics_* (builds), check_* (results)
+src/          Python pipeline code (pipeline.py runs everything)
 notebooks/    Jupyter notebooks
 kaggle/       Kaggle notebooks, one folder per milestone
 dashboards/   Power BI files
 docs/         problem brief, data quality report, glossary, memo
-tests/        data and code checks
+tests/        data quality tests (data_quality.sql)
 ```

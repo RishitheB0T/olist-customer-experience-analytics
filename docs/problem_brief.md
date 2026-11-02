@@ -162,8 +162,9 @@ No KPI values are calculated yet; they come from saved code in Phase 3.
 ## 4. Scope and limitations
 
 ### What's in scope
-- **Data:** the 9 Olist CSV files. Kaggle describes them as orders from 2016 to
-  2018; the exact date range is checked in Phase 2.
+- **Data:** the 9 Olist CSV files. Purchases run from 2016-09-04 to 2018-10-17, but
+  the months outside January 2017 – August 2018 are almost empty, so trends use that
+  main period (99,092 of 99,441 orders).
 - **Main unit:** one order. Some patterns also work at item level (P3 delivery fee
   share), seller level (P4) or customer level (P5).
 - **Who is included in each pattern.** Each pattern has two kinds of numbers,
@@ -196,9 +197,9 @@ Before any pattern, we show the whole picture, so nothing is silently left out:
 5. An **exclusion table** for each pattern: starting orders, how many each filter
    removes and why, and how many are left.
 
-**Known data issues to handle in Phase 2:** some orders have more than one review,
-some review IDs appear on more than one order, and a few surveys were answered
-months after they were sent.
+**Data issues:** found and handled in Phase 2 (for example orders with several reviews,
+review IDs shared by several orders, surveys answered months later). Every issue, its
+count and the rule used are in [data_quality_report.md](data_quality_report.md).
 
 ### What's out of scope
 - **Things the data doesn't contain:** competitors' prices, discounts and offers,
