@@ -26,8 +26,9 @@
 - Phase 2, Step 1: shared connection helper `src/db.py` (`get_engine()`); scripts now run with `python -m src.<name>`
 - Phase 2, Step 2: `src/load_raw.py` loads all 9 CSVs into schema `raw` as text (52 columns), row counts match files; takes ~2.5 min (geolocation ~85s)
 - Phase 2, Step 2 (revised): shared `src/config.py` (9 required files); load_raw checks all files first and stops with exit code 1 on any row-count mismatch (both stops tested on purpose)
+- Phase 2, Step 3A: reusable `src/run_sql.py` + `sql/profile_baseline.sql`; purchases 2016-09-04 to 2018-10-17 but months outside 2017-01..2018-08 are near-empty (Nov 2016 has none); 768 orders no review, 547 with 2-3; 775 orders without items (mostly unavailable/canceled)
 
 ### Next
-- Phase 2, Step 3: profile the raw data (counts, missing values, duplicates, broken links)
+- Phase 2, Step 3B: profile data quality (missing values, duplicate keys, broken links)
 
 

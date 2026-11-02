@@ -98,3 +98,10 @@ Format: **Term** — plain meaning — tiny example
 - **fail fast** — stop at the first sign of a problem instead of carrying on with bad data — `load_raw.py` stops if a row count doesn't match
 - **exit code** — the number a program returns when it finishes: 0 = success, anything else = error — `SystemExit("Stopping: ...")` gives exit code 1
 - **config (settings file)** — one file holding shared settings that many scripts use — `src/config.py` lists the 9 required files
+- **GROUP BY** — sort rows into piles by a column, then count or sum each pile — orders per `order_status`
+- **window function (OVER)** — a calculation that looks across many rows without merging them — `sum(count(*)) OVER ()` = total of all piles, for a percentage
+- **LEFT JOIN** — join two tables but keep every row from the left one, even with no match — orders with no review still appear (0 reviews)
+- **CTE (WITH ...)** — a named mini-query you can use like a table in the next step — `WITH per_order AS (...)`
+- **NOT EXISTS** — keep a row only if a matching row does NOT exist in another table — orders that have no items
+- **cast (::)** — convert a value from one type to another — `'2017-10-02 10:56:33'::timestamp`
+- **date_trunc** — cut a date-time down to the start of its month/day/year — `date_trunc('month', ...)` gives 2017-10-01
