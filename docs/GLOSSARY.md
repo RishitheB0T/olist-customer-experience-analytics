@@ -182,3 +182,7 @@ Format: **Term** — plain meaning — tiny example
 - **full window** — the whole follow-up period fits before the data ends, so "didn't come back" is real, not just unseen — 53,522 customers for 180 days
 - **data end (effective)** — the last day the data is complete enough to trust — 2018-08-31 (almost no orders after it)
 - **90th percentile (p90)** — the value 90% of rows are below — item fee share p90 = 0.64: 9 in 10 items have a fee under 64% of the price
+- **matplotlib** — Python's standard library for drawing charts — `plt.subplots(3, 1, sharex=True)` = 3 panels sharing one time axis
+- **small multiples** — several small charts with the same axis instead of one crowded chart (or two y-scales) — orders, on-time rate and unhappy rate in 3 panels
+- **histogram** — bars counting how many values fall in each range — days to delivery, 1 bar per day
+- **long tail** — a few very large values far from the rest that pull the average up — delivery: median 10 days, mean 12.5, longest 210
