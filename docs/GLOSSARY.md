@@ -173,3 +173,6 @@ Format: **Term** — plain meaning — tiny example
 - **mixed-up groups (confounding)** — two groups differ in more than one way, so you can't tell which difference goes with the result — late orders surveyed before delivery were also much later (median 9 vs 2 days)
 - **delivery stage** — one part of the journey: seller (purchase → hand-over to carrier) or carrier (hand-over → customer) — median 2 + 7 days (P2)
 - **route** — where a parcel goes from and to, here seller state → customer state — `SP -> RJ`
+- **single-product order** — an order whose items are all the same product, so its review can be tied to one category and listing — 95,430 of 98,666 orders with items
+- **ntile(4) / quarter** — splits sorted rows into 4 equal-sized groups — price quarter 1 = cheapest quarter of its category, 4 = most expensive
+- **thin listing** — a product page with little information (few photos, short description) — an indirect clue, not a quality measure
