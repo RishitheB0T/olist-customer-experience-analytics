@@ -168,3 +168,6 @@ Format: **Term** — plain meaning — tiny example
 
 - **denominator** — the "out of how many" in a rate — unhappy rate = 14,533 unhappy ÷ 98,673 reviewed orders
 - **rate vs share** — rate = how common something is inside a group; share = how much of the total a group holds — not-delivered orders: unhappy rate 78.21%, share of all unhappy orders 15.29%
+- **band (bucket)** — a range that groups many values into a few labels — days late: on time, 1-3, 4-7, 8+
+- **on-time delivery rate** — delivered on or before the promised day ÷ delivered orders with both dates — 93.23% (P1)
+- **mixed-up groups (confounding)** — two groups differ in more than one way, so you can't tell which difference goes with the result — late orders surveyed before delivery were also much later (median 9 vs 2 days)
