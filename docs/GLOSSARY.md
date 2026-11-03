@@ -171,3 +171,5 @@ Format: **Term** — plain meaning — tiny example
 - **band (bucket)** — a range that groups many values into a few labels — days late: on time, 1-3, 4-7, 8+
 - **on-time delivery rate** — delivered on or before the promised day ÷ delivered orders with both dates — 93.23% (P1)
 - **mixed-up groups (confounding)** — two groups differ in more than one way, so you can't tell which difference goes with the result — late orders surveyed before delivery were also much later (median 9 vs 2 days)
+- **delivery stage** — one part of the journey: seller (purchase → hand-over to carrier) or carrier (hand-over → customer) — median 2 + 7 days (P2)
+- **route** — where a parcel goes from and to, here seller state → customer state — `SP -> RJ`

@@ -44,6 +44,7 @@
 - **Phase 2 complete**: full pipeline from raw 156 s, 13 of 13 tests pass
 - Phase 3, Step 1: roadmap (10 steps) + `sql/questions/00_baseline.sql`. 99,441 orders (99,092 in main period), 98,673 reviewed (99.23%). Main KPI: unhappy rate 14.73% (14,533 of 98,673), avg score 4.08; main period 14.67%. Delivered 12.85% vs not delivered 78.21%; not-delivered orders hold 15.29% of all unhappy orders
 - Phase 3, Step 2: `sql/questions/01_p1_delivery_promise.sql`. 96,470 delivered orders with both dates (95,824 reviewed). On time 93.23%; median 10 days to deliver vs 24 promised. Unhappy: on time 9.31%, 1-3 days late 32.18%, 4-7 67.68%, 8+ 79.36%. On-time orders: 7.56% (0-7 days) up to 16.03% (22+ days). Late orders surveyed after delivery: 25.11% unhappy vs 62.47% for all late, but they were less late (median 2 vs 9 days) - mixed-up groups
+- Phase 3, Step 3: `sql/questions/02_p2_stages_routes.sql`. 95,947 orders (95,306 reviewed). Median seller 2 days + carrier 7 = 10. Of late deliveries 77.65% had the seller on time (carrier part 28 vs 7 days). Seller late but delivery on time: 14.57% unhappy vs 8.91%. Other-state routes 13.72% vs same-state 10.04%; distance bands 10.10% (<100 km) to 16.43% (2,000+ km). Worst route SP->RJ: 14.28% late, 19.82% unhappy at ~383 km. Multi-seller orders: ~0-1% "late" but 46-48% unhappy - one delivery date may not cover every parcel (note for limitations)
 
 ### Next
-- Phase 3, Step 3: P2 delivery stages and routes (seller part vs carrier part)
+- Phase 3, Step 4: P3 product and value (categories, delivery fee share, prices within category)
