@@ -53,5 +53,7 @@
 - Phase 3, Step 8: `sql/questions/06_comment_keywords.sql` (rough Portuguese keyword themes). 41.34% of reviews have a message; 74.77% of unhappy ones do. Of unhappy comments: not received 29.90%, missing part 10.30%, refund/cancel 7.86%, wrong item 7.18%, late words 6.65%, damaged/faulty 6.12%, none of these 41.89%. Unhappy comments on ON-TIME orders (6,513): not received 16.78%, missing part 14.39%, wrong item 10.79%, damaged/faulty 9.53%
 - Phase 3, Step 9: `docs/phase3_findings.md` (headlines, baseline, P1-P5, comments, trends, what Phase 4 checks, 9 limitations); all 7 question files re-run and every number checked against fresh output. README: findings so far, how to run the analysis, plan + folders. Baseline label fixed (only P1-P2 are delivered-only; P3-P4 also include undelivered orders)
 
+- Phase 3, Step 10: Kaggle K1 notebook `kaggle/k1_unhappy_customers/` (DuckDB on the raw CSVs, 3 charts, summary, worth testing, limitations, GitHub link) + `kernel-metadata.json` (public, dataset olistbr/brazilian-ecommerce). Runs top to bottom locally with 0 errors in ~12 s; every result matches the PostgreSQL pipeline exactly. Kaggle push refused twice with 403 Forbidden (with and without internet)
+
 ### Next
-- Phase 3, Step 10: Kaggle K1 notebook (private first)
+- Publish K1 on Kaggle (fix the 403 first), then the Phase 3 wrap-up

@@ -190,3 +190,9 @@ Format: **Term** — plain meaning — tiny example
 - **unpivot (CROSS JOIN LATERAL VALUES)** — turns several yes/no columns into one row per column, so one GROUP BY covers them all — 7 themes become 7 rows
 - **keyword check (rough)** — counting texts that contain chosen words; misses some, catches some wrong ones — 'not received' in 29.90% of unhappy comments
 - **spot check** — reading a few real examples to see whether a rule catches the right thing — 2 comments per theme
+- **DuckDB** — a small SQL database that runs inside Python and reads CSV files directly, no server needed — `read_csv('olist_orders_dataset.csv')` in the Kaggle notebook
+- **in-memory database** — a database kept only in the computer's memory; it disappears when the program stops — `duckdb.connect()` with no file name
+- **QUALIFY** — a filter on a window function's result, like WHERE but applied after the window is worked out — `QUALIFY row_number() OVER (...) = 1` keeps one review per order
+- **kernel-metadata.json** — the settings file Kaggle reads when you push a notebook: ID, title, file, dataset, public or private — `"dataset_sources": ["olistbr/brazilian-ecommerce"]`
+- **kaggle kernels push** — uploads a notebook to Kaggle and runs it there ("kernel" = Kaggle's word for a notebook) — `kaggle kernels push -p kaggle/k1_unhappy_customers`
+- **403 Forbidden** — a website's answer meaning "I know who you are, but you're not allowed to do this" — Kaggle's reply to our first push

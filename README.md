@@ -104,6 +104,10 @@ Each business question is a saved SQL file in `sql/questions/` (baseline, P1-P5 
 .\.venv\Scripts\jupyter.exe nbconvert --to notebook --execute --inplace notebooks/01_trends_and_breakdowns.ipynb
 ```
 
+**Kaggle notebook (K1):** [`kaggle/k1_unhappy_customers/`](kaggle/k1_unhappy_customers/) answers the main
+questions with DuckDB straight from the raw CSV files, because Kaggle can't reach PostgreSQL. Its results match the
+PostgreSQL pipeline exactly.
+
 ## Tech stack
 
 Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, scipy, Jupyter, matplotlib, Power BI, Git/GitHub, Kaggle.
