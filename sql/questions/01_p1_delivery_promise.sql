@@ -75,3 +75,22 @@ FROM analytics.fact_order
 WHERE order_status = 'delivered' AND is_late AND has_review
 GROUP BY survey_timing
 ORDER BY survey_timing;
+
+-- name: Check - rated before vs after the parcel arrived (review_answer_timestamp vs delivery time), within each lateness band
+-- Comparing inside the same band keeps "how late" the same, so the two groups differ mainly in when they rated.
+SELECT CASE WHEN days_late <= 0 THEN '1. on time or early'
+            WHEN days_late <= 3 THEN '2. 1-3 days late'
+            WHEN days_late <= 7 THEN '3. 4-7 days late'
+            ELSE '4. 8+ days late' END AS days_late_band,
+       CASE WHEN review_answer_timestamp < order_delivered_customer_date
+            THEN 'rated before arrival' ELSE 'rated after arrival' END AS rated,
+       count(*) AS reviewed,
+       round(100.0 * count(*) / sum(count(*)) OVER (PARTITION BY CASE WHEN days_late <= 0 THEN '1. on time or early'
+            WHEN days_late <= 3 THEN '2. 1-3 days late' WHEN days_late <= 7 THEN '3. 4-7 days late'
+            ELSE '4. 8+ days late' END), 2) AS pct_of_band,
+       round(100.0 * count(*) FILTER (WHERE is_unhappy) / count(*), 2) AS unhappy_rate_pct,
+       round(avg(review_score), 2) AS avg_score
+FROM analytics.fact_order
+WHERE order_status = 'delivered' AND days_late IS NOT NULL AND has_review
+GROUP BY days_late_band, rated
+ORDER BY days_late_band, rated;

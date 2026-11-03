@@ -73,20 +73,28 @@ FROM per_seller p, reference r
 GROUP BY r.rate_all, r.rate_on_time;
 
 -- name: By rate - the 10 sellers with the highest unhappy rate on ON-TIME orders (50+ on-time reviewed orders)
+-- late_pct: late ÷ delivered orders with both dates, reviewed or not (a delivery measurement).
+-- Unhappy rates: reviewed orders only.
 WITH per_seller AS (
   SELECT f.seller_id, s.state,
-         count(*) AS reviewed,
-         round(100.0 * count(*) FILTER (WHERE f.is_unhappy) / count(*), 2) AS unhappy_pct,
-         round(100.0 * count(*) FILTER (WHERE f.is_late) / count(*), 2)    AS late_pct,
-         count(*) FILTER (WHERE f.order_status = 'delivered' AND f.days_late <= 0) AS reviewed_on_time,
+         count(*) FILTER (WHERE f.order_status = 'delivered' AND f.days_late IS NOT NULL) AS delivered_with_dates,
+         count(*) FILTER (WHERE f.order_status = 'delivered' AND f.is_late)               AS late,
+         count(*) FILTER (WHERE f.has_review) AS reviewed,
+         count(*) FILTER (WHERE f.is_unhappy) AS unhappy,
+         count(*) FILTER (WHERE f.has_review AND f.order_status = 'delivered' AND f.days_late <= 0) AS reviewed_on_time,
          count(*) FILTER (WHERE f.is_unhappy AND f.order_status = 'delivered' AND f.days_late <= 0) AS unhappy_on_time
   FROM analytics.fact_order f
   JOIN analytics.dim_seller s ON s.seller_id = f.seller_id
-  WHERE f.n_sellers = 1 AND f.has_review
+  WHERE f.n_sellers = 1             -- all single-seller orders, so late_pct includes unreviewed ones
   GROUP BY f.seller_id, s.state
 )
 SELECT left(seller_id, 8) AS seller,   -- first 8 characters of the (already anonymous) ID
-       state, reviewed, unhappy_pct, late_pct, reviewed_on_time,
+       state,
+       delivered_with_dates,
+       round(100.0 * late / delivered_with_dates, 2) AS late_pct,
+       reviewed,
+       round(100.0 * unhappy / reviewed, 2) AS unhappy_pct,
+       reviewed_on_time,
        round(100.0 * unhappy_on_time / reviewed_on_time, 2) AS unhappy_on_time_pct
 FROM per_seller
 WHERE reviewed_on_time >= 50

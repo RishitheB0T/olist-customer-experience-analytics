@@ -1,8 +1,11 @@
 -- Phase 3, Step 4: P3 - product and value.
 -- Are categories, thin listings, prices high for their category or big delivery fees linked with
 -- unhappiness - for all reviewed orders and for on-time orders only?
--- Uses single-product orders (all items are one product), so each review maps to one product.
--- Every query repeats the same two CTEs: "single" (one row per single-product order) and "base".
+-- Comparisons use reviewed single-product orders (all items are one product), so each review maps to
+-- one product; every comparison prints both denominators (reviewed, reviewed_on_time).
+-- Category rankings need 500+ orders in the denominator being ranked (on-time orders for on-time rates).
+-- The item-level fee share measurement (the brief's KPI) uses ALL items, reviewed or not.
+-- Every comparison repeats the same two CTEs: "single" (one row per single-product order) and "base".
 -- Run with:  python -m src.run_sql sql/questions/03_p3_product_value.sql
 
 -- name: Exclusion table - which orders P3 uses
@@ -21,7 +24,7 @@ FROM (VALUES
 ) AS t(n, step, orders)
 ORDER BY n;
 
--- name: Categories - the 10 with the highest on-time unhappy rate (categories with 500+ reviewed orders)
+-- name: Categories - the 10 with the highest on-time unhappy rate (categories with 500+ on-time reviewed orders)
 WITH single AS (
   SELECT order_id, min(product_id) AS product_id FROM analytics.fact_order_item
   GROUP BY order_id HAVING count(DISTINCT product_id) = 1
@@ -40,11 +43,11 @@ SELECT product_category,
        round(100.0 * count(*) FILTER (WHERE is_unhappy AND on_time) / count(*) FILTER (WHERE on_time), 2) AS unhappy_on_time_pct
 FROM base
 GROUP BY product_category
-HAVING count(*) >= 500
+HAVING count(*) FILTER (WHERE on_time) >= 500   -- minimum applies to the denominator being ranked
 ORDER BY unhappy_on_time_pct DESC
 LIMIT 10;
 
--- name: Categories - the 5 with the lowest on-time unhappy rate (500+ reviewed orders), and how many qualify
+-- name: Categories - the 5 with the lowest on-time unhappy rate (500+ on-time reviewed orders), and how many qualify
 WITH single AS (
   SELECT order_id, min(product_id) AS product_id FROM analytics.fact_order_item
   GROUP BY order_id HAVING count(DISTINCT product_id) = 1
@@ -58,13 +61,14 @@ WITH single AS (
 ), per_category AS (
   SELECT product_category, count(*) AS reviewed,
          round(100.0 * count(*) FILTER (WHERE is_unhappy) / count(*), 2) AS unhappy_pct,
+         count(*) FILTER (WHERE on_time) AS reviewed_on_time,
          round(100.0 * count(*) FILTER (WHERE is_unhappy AND on_time) / count(*) FILTER (WHERE on_time), 2) AS unhappy_on_time_pct
   FROM base
   GROUP BY product_category
-  HAVING count(*) >= 500
+  HAVING count(*) FILTER (WHERE on_time) >= 500
 )
-SELECT product_category, reviewed, unhappy_pct, unhappy_on_time_pct,
-       count(*) OVER () AS categories_with_500_plus
+SELECT product_category, reviewed, unhappy_pct, reviewed_on_time, unhappy_on_time_pct,
+       count(*) OVER () AS categories_ranked
 FROM per_category
 ORDER BY unhappy_on_time_pct
 LIMIT 5;
@@ -82,10 +86,11 @@ WITH single AS (
   WHERE f.has_review
 )
 SELECT 'photos' AS clue,
-       CASE WHEN photos IS NULL THEN '5. missing' WHEN photos >= 4 THEN '4. 4+'
+       CASE WHEN photos IS NULL THEN '5. missing' WHEN photos >= 4 THEN '4. 4+ photos'
             ELSE photos::text || '. ' || photos::text || ' photo(s)' END AS band,
        count(*) AS reviewed,
        round(100.0 * count(*) FILTER (WHERE is_unhappy) / count(*), 2) AS unhappy_pct,
+       count(*) FILTER (WHERE on_time) AS reviewed_on_time,
        round(100.0 * count(*) FILTER (WHERE is_unhappy AND on_time) / count(*) FILTER (WHERE on_time), 2) AS unhappy_on_time_pct
 FROM base GROUP BY band
 UNION ALL
@@ -94,6 +99,7 @@ SELECT 'description',
             WHEN chars < 800 THEN '2. 300-799' WHEN chars < 1500 THEN '3. 800-1,499' ELSE '4. 1,500+' END,
        count(*),
        round(100.0 * count(*) FILTER (WHERE is_unhappy) / count(*), 2),
+       count(*) FILTER (WHERE on_time),
        round(100.0 * count(*) FILTER (WHERE is_unhappy AND on_time) / count(*) FILTER (WHERE on_time), 2)
 FROM base GROUP BY 2
 ORDER BY clue DESC, band;
@@ -116,12 +122,13 @@ SELECT price_quarter,
        count(*) AS reviewed,
        percentile_cont(0.5) WITHIN GROUP (ORDER BY unit_price) AS median_price,
        round(100.0 * count(*) FILTER (WHERE is_unhappy) / count(*), 2) AS unhappy_pct,
+       count(*) FILTER (WHERE on_time) AS reviewed_on_time,
        round(100.0 * count(*) FILTER (WHERE is_unhappy AND on_time) / count(*) FILTER (WHERE on_time), 2) AS unhappy_on_time_pct
 FROM base
 GROUP BY price_quarter
 ORDER BY price_quarter;
 
--- name: Delivery fee compared with price (fee / price)
+-- name: Delivery fee vs price - ORDER-level comparison (order's total fee / total price), reviewed single-product orders
 WITH single AS (
   SELECT order_id, sum(freight_value) / sum(price) AS fee_share FROM analytics.fact_order_item
   GROUP BY order_id HAVING count(DISTINCT product_id) = 1
@@ -140,8 +147,30 @@ SELECT CASE WHEN fee_share < 0.10 THEN '1. under 10%'
        count(*) AS reviewed,
        percentile_cont(0.5) WITHIN GROUP (ORDER BY price_total) AS median_price,
        round(100.0 * count(*) FILTER (WHERE is_unhappy) / count(*), 2) AS unhappy_pct,
+       count(*) FILTER (WHERE on_time) AS reviewed_on_time,
        round(100.0 * count(*) FILTER (WHERE is_unhappy AND on_time) / count(*) FILTER (WHERE on_time), 2) AS unhappy_on_time_pct
 FROM base
+GROUP BY fee_vs_price
+ORDER BY fee_vs_price;
+
+-- name: Delivery fee share - ITEM-level measurement (the brief's KPI): every item, reviewed or not
+SELECT count(*) AS items,
+       count(DISTINCT order_id) AS orders,
+       percentile_cont(0.5) WITHIN GROUP (ORDER BY freight_share) AS median_fee_share,
+       percentile_cont(0.9) WITHIN GROUP (ORDER BY freight_share) AS p90_fee_share,   -- 90% of items are below this
+       round(100.0 * count(*) FILTER (WHERE freight_share >= 1) / count(*), 2) AS pct_items_fee_at_least_price
+FROM analytics.fact_order_item;
+
+-- name: Delivery fee share - ITEM-level bands: share of all items, and their typical price
+SELECT CASE WHEN freight_share < 0.10 THEN '1. under 10%'
+            WHEN freight_share < 0.25 THEN '2. 10-24%'
+            WHEN freight_share < 0.50 THEN '3. 25-49%'
+            WHEN freight_share < 1.00 THEN '4. 50-99%'
+            ELSE '5. 100%+ (fee at least the price)' END AS fee_vs_price,
+       count(*) AS items,
+       round(100.0 * count(*) / sum(count(*)) OVER (), 2) AS pct_of_items,
+       percentile_cont(0.5) WITHIN GROUP (ORDER BY price) AS median_price
+FROM analytics.fact_order_item
 GROUP BY fee_vs_price
 ORDER BY fee_vs_price;
 

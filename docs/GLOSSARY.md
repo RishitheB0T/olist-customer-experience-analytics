@@ -181,3 +181,4 @@ Format: **Term** — plain meaning — tiny example
 - **repeat purchase rate** — customers who order again within a fixed window ÷ customers with that full window — 180 days: 1.33% unhappy vs 1.80% others
 - **full window** — the whole follow-up period fits before the data ends, so "didn't come back" is real, not just unseen — 53,522 customers for 180 days
 - **data end (effective)** — the last day the data is complete enough to trust — 2018-08-31 (almost no orders after it)
+- **90th percentile (p90)** — the value 90% of rows are below — item fee share p90 = 0.64: 9 in 10 items have a fee under 64% of the price
