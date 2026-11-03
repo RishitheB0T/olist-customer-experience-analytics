@@ -176,3 +176,5 @@ Format: **Term** — plain meaning — tiny example
 - **single-product order** — an order whose items are all the same product, so its review can be tied to one category and listing — 95,430 of 98,666 orders with items
 - **ntile(4) / quarter** — splits sorted rows into 4 equal-sized groups — price quarter 1 = cheapest quarter of its category, 4 = most expensive
 - **thin listing** — a product page with little information (few photos, short description) — an indirect clue, not a quality measure
+- **concentration** — how much of a total sits with a few members; compare it with their share of orders, not just the total — top 20% of sellers: 84.80% of unhappy reviews but also 80.04% of orders
+- **minimum group size** — the smallest group allowed to get its own rate, so tiny groups don't give noisy numbers — 50 reviewed orders per seller (provisional, set in Phase 4)
