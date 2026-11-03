@@ -186,3 +186,7 @@ Format: **Term** — plain meaning — tiny example
 - **small multiples** — several small charts with the same axis instead of one crowded chart (or two y-scales) — orders, on-time rate and unhappy rate in 3 panels
 - **histogram** — bars counting how many values fall in each range — days to delivery, 1 bar per day
 - **long tail** — a few very large values far from the rest that pull the average up — delivery: median 10 days, mean 12.5, longest 210
+- **regex match (~)** — "does this text contain this pattern?" — `msg ~ 'quebrad'` matches quebrado / quebrada (broken); `n[aã]o` matches nao and não
+- **unpivot (CROSS JOIN LATERAL VALUES)** — turns several yes/no columns into one row per column, so one GROUP BY covers them all — 7 themes become 7 rows
+- **keyword check (rough)** — counting texts that contain chosen words; misses some, catches some wrong ones — 'not received' in 29.90% of unhappy comments
+- **spot check** — reading a few real examples to see whether a rule catches the right thing — 2 comments per theme
