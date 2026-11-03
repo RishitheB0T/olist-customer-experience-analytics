@@ -153,11 +153,14 @@ its **lowest** score counts, because the project studies unhappy customers.
   average up, so waiting times use the median (the middle value).
 - **No tiny groups:** rates are only compared for groups with enough orders; the
   minimum is set in Phase 4.
-- **Window length:** the repeat-purchase window is set in Phase 3, after checking
-  how many customers have a full window before the data ends.
+- **Window length:** set in Phase 3 to **180 days** from the moment the customer
+  submitted the review of their first order. Of the lengths checked (30, 90, 180,
+  365 days), 180 sees the most customers order again (929) while keeping 53,522
+  customers with a full window. The data is treated as ending 2018-08-31, because it
+  has almost no orders after that.
 - **Order total:** total paid for an order = the sum of its `payment_value` rows.
 
-No KPI values are calculated yet; they come from saved code in Phase 3.
+KPI values are calculated in Phase 3 by the saved queries in `sql/questions/`.
 
 ## 4. Scope and limitations
 

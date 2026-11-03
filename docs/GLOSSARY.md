@@ -178,3 +178,6 @@ Format: **Term** — plain meaning — tiny example
 - **thin listing** — a product page with little information (few photos, short description) — an indirect clue, not a quality measure
 - **concentration** — how much of a total sits with a few members; compare it with their share of orders, not just the total — top 20% of sellers: 84.80% of unhappy reviews but also 80.04% of orders
 - **minimum group size** — the smallest group allowed to get its own rate, so tiny groups don't give noisy numbers — 50 reviewed orders per seller (provisional, set in Phase 4)
+- **repeat purchase rate** — customers who order again within a fixed window ÷ customers with that full window — 180 days: 1.33% unhappy vs 1.80% others
+- **full window** — the whole follow-up period fits before the data ends, so "didn't come back" is real, not just unseen — 53,522 customers for 180 days
+- **data end (effective)** — the last day the data is complete enough to trust — 2018-08-31 (almost no orders after it)
