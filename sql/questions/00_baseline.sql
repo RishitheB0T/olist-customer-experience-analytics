@@ -50,7 +50,7 @@ FROM analytics.fact_order
 WHERE in_main_period
 ORDER BY orders_group;
 
--- name: Unhappy rate, delivered vs not delivered (P1-P4 study delivered orders, so this shows what they leave out)
+-- name: Unhappy rate, delivered vs not delivered (P1-P2 study delivered orders, so this shows what they leave out)
 SELECT CASE WHEN order_status = 'delivered' THEN 'delivered' ELSE 'not delivered' END AS status_group,
        count(*) AS orders,
        count(*) FILTER (WHERE has_review) AS reviewed_orders,

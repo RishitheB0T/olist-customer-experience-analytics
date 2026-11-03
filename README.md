@@ -10,7 +10,21 @@ is a short list of changes **worth testing**, each with a suggested way to test 
 things would be worth testing a fix for first?
 Full plan: patterns, KPIs, scope and limitations in [docs/problem_brief.md](docs/problem_brief.md).
 
-> 🚧 Work in progress: Phases 0-2 done; next is **Phase 3 (SQL + Python analysis)**.
+> 🚧 Work in progress: Phases 0-2 done; Phase 3 analysis done; next is the first Kaggle notebook.
+
+## Findings so far (Phase 3)
+
+These are patterns in past orders (things that go together), not proof of causes.
+Phase 4 checks whether they are bigger than chance would explain.
+
+- **Late delivery has the strongest link found:** 9.31% of on-time orders were unhappy,
+  against 79.36% of orders 8+ days late. Many late orders were rated before the parcel arrived.
+- **Most late deliveries had the seller hand over on time** (77.65%). The carrier part was the long one.
+- **Even on-time orders show product signals:** office furniture had 17.15% unhappy against
+  8.48% for all on-time single-product orders, and unhappy comments mention missing parts, wrong items and damage.
+- **Unhappy orders hold 17.46% of reviewed order value** while being 14.73% of reviewed orders.
+
+Full summary, with every count and its limitations: [docs/phase3_findings.md](docs/phase3_findings.md).
 
 ## Data
 
@@ -77,9 +91,22 @@ flowchart LR
 Every problem found in the data, and the rule used for it, is in
 [docs/data_quality_report.md](docs/data_quality_report.md).
 
+## Analysis
+
+Each business question is a saved SQL file in `sql/questions/` (baseline, P1-P5 from the
+[problem brief](docs/problem_brief.md), and a rough check of review comments). Run one, or rerun the notebook:
+
+```powershell
+# One question file: prints each query's result as a table
+.\.venv\Scripts\python.exe -m src.run_sql sql/questions/01_p1_delivery_promise.sql
+
+# The notebook (monthly trends, states, categories, odd values), run top to bottom
+.\.venv\Scripts\jupyter.exe nbconvert --to notebook --execute --inplace notebooks/01_trends_and_breakdowns.ipynb
+```
+
 ## Tech stack
 
-Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, scipy, Jupyter, Power BI, Git/GitHub, Kaggle.
+Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, scipy, Jupyter, matplotlib, Power BI, Git/GitHub, Kaggle.
 
 ## Project plan
 
@@ -88,7 +115,7 @@ Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, scipy, Jupyter, Power BI, Git/Gi
 | 0 | Setup | ✅ Done |
 | 1 | Business question & KPIs | ✅ Done |
 | 2 | Clean data (raw → clean → star schema) | ✅ Done |
-| 3 | SQL + Python analysis | Next |
+| 3 | SQL + Python analysis | In progress (analysis done; Kaggle notebook next) |
 | 4 | Basic statistics | — |
 | 5 | Power BI dashboard | — |
 | 6 | Recommendations (memo + slides) | — |
@@ -98,10 +125,11 @@ Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, scipy, Jupyter, Power BI, Git/Gi
 ```
 data/raw/     raw CSVs (not on GitHub)
 sql/          SQL scripts: profile_* (raw checks), clean_* and analytics_* (builds), check_* (results)
+sql/questions/  Phase 3 business questions (baseline, P1-P5, review comments)
 src/          Python pipeline code (pipeline.py runs everything)
-notebooks/    Jupyter notebooks
+notebooks/    Jupyter notebooks (trends and breakdowns, with charts)
 kaggle/       Kaggle notebooks, one folder per milestone
 dashboards/   Power BI files
-docs/         problem brief, data quality report, glossary, memo
+docs/         problem brief, data quality report, Phase 3 findings, glossary, memo
 tests/        data quality tests (data_quality.sql)
 ```
