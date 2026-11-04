@@ -10,7 +10,7 @@ is a short list of changes **worth testing**, each with a suggested way to test 
 things would be worth testing a fix for first?
 Full plan: patterns, KPIs, scope and limitations in [docs/problem_brief.md](docs/problem_brief.md).
 
-> 🚧 Work in progress: Phases 0-2 done; Phase 3 analysis done; next is the first Kaggle notebook.
+> 🚧 Work in progress: Phases 0-3 done; next is **Phase 4 (statistics)**.
 
 ## Findings so far (Phase 3)
 
@@ -122,8 +122,8 @@ PostgreSQL pipeline exactly.
 | 0 | Setup | ✅ Done |
 | 1 | Business question & KPIs | ✅ Done |
 | 2 | Clean data (raw → clean → star schema) | ✅ Done |
-| 3 | SQL + Python analysis, Kaggle notebook | Analysis and notebook done; wrap-up next |
-| 4 | Statistics (hypothesis tests, confidence intervals) | — |
+| 3 | SQL + Python analysis, Kaggle notebook | ✅ Done |
+| 4 | Statistics (hypothesis tests, confidence intervals) | Next |
 | 5 | Seller prioritisation under a budget (PuLP) | — |
 | 6 | Power BI dashboard + Excel workbook | — |
 | 7 | Recommendations (memo, slides, A/B test designs) | — |

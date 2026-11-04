@@ -58,5 +58,7 @@
 - Project goal updated (2026-11-04) to match my resume: 11 phases (0-10). New: confidence intervals in Phase 4, PuLP seller prioritisation (Phase 5), Excel workbook next to Power BI (Phase 6), A/B test designs (Phase 7), Docker Compose (8), GitHub Actions CI/CD (9), Azure Data Factory + Databricks PySpark (10). Dropped: AI review tagging, prediction model, Kaggle notebooks K3-K8. CLAUDE.md, AGENTS.md, README and brief updated
 - Plan: added 2 optional extras after Phase 10, started only on "start extras": 11 AI review tagging (K3, free-tier or local LLM vs ~200 hand labels), 12 Prediction (K4, no data leakage, baseline first, precision and recall). K5-K8 stay dropped
 
+- **Phase 3 complete**: 7 saved question files, 1 notebook, findings summary, Kaggle K1 public; README status updated
+
 ### Next
-- Phase 3 wrap-up: recap, README + GLOSSARY, commit
+- Phase 4, Step 1: confidence interval for one rate (the main KPI)
