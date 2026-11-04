@@ -55,5 +55,7 @@
 
 - Phase 3, Step 10: Kaggle K1 notebook `kaggle/k1_unhappy_customers/` (DuckDB on the raw CSVs, 3 charts, summary, worth testing, limitations, GitHub link) + `kernel-metadata.json` (public, dataset olistbr/brazilian-ecommerce). Runs top to bottom locally with 0 errors in ~12 s; every result matches the PostgreSQL pipeline exactly. First Kaggle pushes refused (403 Forbidden) until the account was phone-verified. **K1 published (public):** https://www.kaggle.com/code/rishikeshkallapally/what-is-linked-with-unhappy-olist-customers - Kaggle run COMPLETE (DuckDB 1.3.2 preinstalled, data found in /kaggle/input/brazilian-ecommerce, 26 categories / 8.48% as locally)
 
+- Project goal updated (2026-11-04) to match my resume: 11 phases (0-10). New: confidence intervals in Phase 4, PuLP seller prioritisation (Phase 5), Excel workbook next to Power BI (Phase 6), A/B test designs (Phase 7), Docker Compose (8), GitHub Actions CI/CD (9), Azure Data Factory + Databricks PySpark (10). Dropped: AI review tagging, prediction model, Kaggle notebooks K3-K8. CLAUDE.md, AGENTS.md, README and brief updated
+
 ### Next
 - Phase 3 wrap-up: recap, README + GLOSSARY, commit

@@ -151,7 +151,7 @@ The base is 96,653 reviewed single-seller orders from 3,073 sellers.
    belongs to one product or seller.
 6. **Rough keywords.** Keywords miss some comments and catch some wrong ones, and one comment can
    match several themes. 41.89% of unhappy comments match none of them. Proper tagging is
-   advanced phase A1.
+   not part of this project.
 7. **Provisional minimums.** The 500-order and 50-order cut-offs are set properly in Phase 4.
 8. **Few repeat customers.** The repeat-purchase comparison rests on 103 unhappy customers who
    ordered again.

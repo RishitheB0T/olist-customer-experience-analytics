@@ -111,7 +111,8 @@ PostgreSQL pipeline exactly.
 
 ## Tech stack
 
-Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, scipy, Jupyter, matplotlib, Power BI, Git/GitHub, Kaggle.
+- **Used so far:** Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, Jupyter, matplotlib, Git/GitHub, Kaggle.
+- **Planned:** SciPy, PuLP, Power BI, Excel, Docker Compose, GitHub Actions, Azure Data Factory, Databricks (PySpark).
 
 ## Project plan
 
@@ -120,10 +121,14 @@ Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, scipy, Jupyter, matplotlib, Powe
 | 0 | Setup | ✅ Done |
 | 1 | Business question & KPIs | ✅ Done |
 | 2 | Clean data (raw → clean → star schema) | ✅ Done |
-| 3 | SQL + Python analysis | In progress (analysis done; Kaggle notebook next) |
-| 4 | Basic statistics | — |
-| 5 | Power BI dashboard | — |
-| 6 | Recommendations (memo + slides) | — |
+| 3 | SQL + Python analysis, Kaggle notebook | Analysis and notebook done; wrap-up next |
+| 4 | Statistics (hypothesis tests, confidence intervals) | — |
+| 5 | Seller prioritisation under a budget (PuLP) | — |
+| 6 | Power BI dashboard + Excel workbook | — |
+| 7 | Recommendations (memo, slides, A/B test designs) | — |
+| 8 | Docker Compose | — |
+| 9 | GitHub Actions CI/CD | — |
+| 10 | Azure Data Factory + Databricks (PySpark) | — |
 
 ## Folder structure
 

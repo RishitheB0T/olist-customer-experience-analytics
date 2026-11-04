@@ -150,8 +150,9 @@ While explaining, flag (don't fix) anything like:
   they don't prove a cause or that a fix will work,
 - secrets or large data files that might get committed,
 - Kaggle notebooks created outside the planned milestones (K1 after Phase 3,
-  K2 after Phase 6; K3-K8 only in advanced work),
-- advanced work started before the core is finished.
+  K2 after Phase 7 as a new version of the same notebook),
+- a phase started before the earlier phases are finished,
+- resume or README claims about work that isn't built yet.
 
 Format: **"Worth checking:"** + what you noticed + the exact message I can send
 Claude. If you're not sure, say so.
@@ -164,9 +165,10 @@ Claude. If you're not sure, say so.
   "What's linked with unhappy customers, and what should Olist test fixing first?"
 - Data: Olist Brazilian E-Commerce dataset on Kaggle (~100k orders, 2016-2018,
   9 linked files), stored in `data/raw/`, never on GitHub.
-- **Core phases:** 0 Setup · 1 Business question · 2 Clean data ·
-  3 SQL + Python analysis (K1) · 4 Basic statistics · 5 Power BI dashboard ·
-  6 Recommendations (K2).
-- **Advanced (only after core):** A1 AI review tagging · A2 Prediction ·
-  A3 Optimization · A4 Databricks · A5 more Kaggle work (K3-K8).
+- **Analysis phases:** 0 Setup · 1 Business question · 2 Clean data ·
+  3 SQL + Python analysis (K1) · 4 Statistics (hypothesis tests, confidence
+  intervals) · 5 Seller prioritisation (PuLP) · 6 Power BI dashboard + Excel
+  workbook · 7 Recommendations: memo, slides, A/B test designs (K2).
+- **Engineering phases:** 8 Docker Compose · 9 GitHub Actions CI/CD ·
+  10 Azure Data Factory + Databricks (PySpark).
 - Build rules: `CLAUDE.md`. Progress: `PROGRESS.md`. Glossary: `docs/GLOSSARY.md`.

@@ -5,7 +5,7 @@ Read this whole file at the start of every session.
 **Priority:** my explicit requests in chat override this file. Two exceptions:
 - The secrets rules in section 7 ALWAYS apply.
 - For risky actions (deleting files, rewriting git history, force-pushing,
-  making anything public), confirm with me once before acting.
+  making anything public, creating anything that can cost money), confirm with me once before acting.
 
 ---
 
@@ -13,7 +13,7 @@ Read this whole file at the start of every session.
 
 - Final-year B.Tech student preparing for a Data Analyst Trainee role.
 - I know Java well. My Python is rusty. I'm new to pandas, data pipelines,
-  statistics, Kaggle and Power BI.
+  statistics, Kaggle, Power BI, Docker, CI/CD and cloud tools.
 - I'm building this to LEARN, and I must be able to explain every line in an interview.
 
 ---
@@ -30,7 +30,7 @@ Read this whole file at the start of every session.
 ## 2. I must never get lost
 
 - Start EVERY reply with a status line in this format:
-  `WHERE WE ARE: Phase 2/6 (Clean data) · Step 3 of ~8 (Load customers table) · NEXT: fix date columns`
+  `WHERE WE ARE: Phase 2/10 (Clean data) · Step 3 of ~8 (Load customers table) · NEXT: fix date columns`
 - At the start of each phase, show its steps as a short numbered roadmap,
   plus 1-2 sentences on how the phase fits the whole project.
 - ONE step per reply. Never combine steps or jump ahead.
@@ -98,6 +98,8 @@ CAUSES another, or that a fix WILL work.
 - I set up GitHub login and the Kaggle API token myself. Tell me where things
   go, but never ask me to paste passwords, tokens or keys into chat.
 - Never print, copy or commit `.env`, `kaggle.json` or any key.
+- Cloud secrets (GitHub Actions secrets, Azure, Databricks tokens) are set by me in
+  those services' own settings, never in code, files or chat.
 
 ### Git workflow
 - Create `.gitignore` BEFORE the first commit, including:
@@ -121,7 +123,7 @@ CAUSES another, or that a fix WILL work.
   `olistbr/brazilian-ecommerce` into `data/raw/`.
 - **Publish ONLY at the planned milestones below.** Don't create or push Kaggle
   notebooks at other times unless I ask.
-- Always push as PRIVATE first. I review it on Kaggle. It goes public only when I say so.
+- Notebooks are pushed PUBLIC (my choice). Confirm with me once right before each public push.
 - Kaggle can't reach my local PostgreSQL: use the Kaggle-hosted Olist dataset
   and DuckDB or SQLite inside the notebook.
 - Any API key in a notebook goes in Kaggle Secrets, never in the code.
@@ -134,18 +136,18 @@ recommendations framed as "worth testing" · limitations · GitHub link ·
 runs top to bottom without errors.
 
 ### Milestones
-- **K1 (after Phase 3):** exploration + SQL business questions.
-- **K2 (after Phase 6):** the full core story: what's linked with unhappy
-  customers, and what Olist could test next.
-- **Later (advanced only):** K3-K8, listed under the advanced phases.
+- **K1 (after Phase 3):** exploration + SQL business questions. ✅ Published.
+- **K2 (after Phase 7):** a new version of the same notebook with the full story:
+  what's linked with unhappy customers, the statistics, and what Olist could test next.
 
 ---
 
 ## 9. Tech stack
 
-- **Core:** Python 3, pandas, SQLAlchemy, psycopg2, PostgreSQL, DuckDB, scipy,
-  Jupyter, python-dotenv, Kaggle CLI, Power BI Desktop, Git, GitHub.
-- **Advanced (later):** scikit-learn, PuLP, an LLM API, Databricks free edition.
+- **Analysis:** Python 3, pandas, SQLAlchemy, psycopg2, PostgreSQL, DuckDB, SciPy,
+  PuLP, Jupyter, matplotlib, python-dotenv, Kaggle CLI, Power BI Desktop, Excel, Git, GitHub.
+- **Engineering:** Docker + Docker Compose, GitHub Actions, Azure Data Factory,
+  Azure Databricks (PySpark).
 - Secrets in `.env` (gitignored), with a `.env.example` of placeholders.
 - Pin package versions in `requirements.txt`.
 
@@ -161,12 +163,15 @@ The README explains how to download it.
 
 ## 11. Phases
 
-### CORE — finish ALL of these before any advanced work
+The goal is the project described on my resume: analysis first (Phases 0-7),
+then engineering (Phases 8-10). Work through them in order.
+
+### ANALYSIS
 
 **0. Setup** — folders, virtual environment, requirements.txt, .gitignore,
 PostgreSQL, GitHub repo, Kaggle account + tool, download data, PROGRESS.md, GLOSSARY.md.
 
-**1. Business question** — `docs/problem_brief.md`: the question, 3-4 patterns
+**1. Business question** — `docs/problem_brief.md`: the question, 5 patterns
 to check (phrased as "is X linked with Y?"), and the KPIs.
 
 **2. Clean data** — raw -> clean -> analytics (star schema) in PostgreSQL.
@@ -175,33 +180,41 @@ One command runs everything. Data quality checks + `docs/data_quality_report.md`
 **3. SQL + Python analysis** — business questions answered in SQL; pandas for
 trends, delivery delays by state, review scores by category, odd values. -> **K1**
 
-**4. Basic statistics** — summaries, group comparisons, whether gaps are bigger
-than chance would explain, and how big they are. Stated as associations, not causes.
+**4. Statistics** — group comparisons with hypothesis tests (SciPy) and 95%
+confidence intervals: is each gap bigger than chance would explain, and how big
+is it? Final minimum group sizes. Stated as associations, not causes.
 
-**5. Power BI dashboard** — 3 pages: overview, delivery deep-dive, seller view.
+**5. Seller prioritisation** — a linear-programming model (PuLP) that picks which
+sellers to prioritise under a fixed budget. The data has no costs, so costs and
+benefits are written-down assumptions. The output is a ranked list worth testing,
+not guaranteed gains.
 
-**6. Recommendations** — 1-page memo + 5-slide readout. Each recommendation is
-framed as "worth testing" with a suggested test. Final README with a pipeline
-diagram. -> **K2**
+**6. Dashboard + Excel** — Power BI, 3 pages: overview, delivery deep-dive, seller
+view. Plus an Excel workbook with pivot tables of the main KPIs.
 
-When Phase 6 is finished, tell me clearly: "The core project is complete."
+**7. Recommendations** — 1-page memo + 5-slide readout. Each recommendation is
+framed as "worth testing" and comes with an A/B test design (who gets the change,
+who it's compared with, what is measured, how many orders, how long). Final README
+with a pipeline diagram. -> **K2**
 
-### ADVANCED — only after the core is done AND I say "start advanced"
+### ENGINEERING
 
-**A1. AI review tagging** — an LLM tags each comment with a complaint reason;
-I hand-label ~200; we measure agreement. -> **K3**
+**8. Docker** — Docker Compose runs PostgreSQL and the pipeline in containers, so
+one command builds everything on any machine.
 
-**A2. Prediction** — flag orders likely to get 1-2 stars using only information
-known before delivery (no data leakage); simple baseline first. -> **K4**
+**9. GitHub Actions CI/CD** — every push runs the pipeline and the 13 data quality
+tests automatically, plus a deploy step (chosen in this phase) so "CD" is true.
 
-**A3. Optimization** — which sellers to prioritise under a limited budget (PuLP).
-The output is a ranked list worth testing, not guaranteed gains. -> **K5**
+**10. Azure** — Azure Data Factory triggers a Databricks PySpark job that builds
+the star schema in the cloud. Before creating anything that can cost money: tell
+me the expected cost, set a budget alert, and confirm with me. Delete paid
+resources when the phase is done.
 
-**A4. Databricks** — rebuild the pipeline on Databricks' free edition.
+When Phase 10 is finished, tell me clearly: "The project is complete."
 
-**A5. Kaggle range** — Titanic competition notebook (**K6**), my own cleaned
-data.gov.in dataset (**K7**), a notebook analysing it (**K8**), and genuine
-discussion comments.
+**Dropped from the plan:** AI review tagging, the prediction model, Databricks'
+free edition (replaced by Azure Databricks) and Kaggle notebooks K3-K8. Add them
+back only if I ask.
 
 ### At the end of every phase
 1. 3-5 line plain recap.
@@ -221,11 +234,14 @@ olist-customer-experience-analytics/
   src/
   notebooks/
   kaggle/          (one folder per milestone notebook)
-  dashboards/
-  docs/            (problem_brief, data_quality_report, GLOSSARY, memo)
+  dashboards/      (Power BI)
+  excel/           (pivot-table workbook)
+  docs/            (problem_brief, data_quality_report, GLOSSARY, memo, slides)
   tests/
+  databricks/      (PySpark job)  azure/  (Data Factory pipeline)
+  .github/workflows/  (GitHub Actions)
   README.md  PROGRESS.md  CLAUDE.md  AGENTS.md
-  requirements.txt  .gitignore  .env.example
+  requirements.txt  .gitignore  .env.example  Dockerfile  docker-compose.yml
 ```
 
 ---
