@@ -210,3 +210,7 @@ Format: **Term** — plain meaning — tiny example
 - **like with like** — comparing groups only where another difference is held equal, so it can't explain the gap — same-state vs different-state routes inside the same distance band
 - **multiple testing** — running many tests at once; at the 0.05 line about 1 in 20 looks "significant" by luck — 26 categories tested
 - **Holm correction** — makes each p-value stricter depending on how many tests were run (smallest × m, next × (m − 1), ...) — 12 of 26 categories still differ after it
+- **binomial test** — for one group: how likely is this many "yes" out of n if the true rate were the usual one? Accounts for group size — seller with 47 unhappy of 87 vs the usual 8.77%
+- **one-sided test** — only looks for a gap in one direction — "is this seller worse than usual?" (not "different")
+- **bootstrap** — re-draw many samples of the same size from our own data (with replacement), recompute the number each time, and take the middle 95% as the interval — value share 17.46% (17.03-17.92%), 2,000 resamples
+- **random seed** — a fixed starting number for "random" draws, so the result is the same every run — `random_state=42`
