@@ -214,3 +214,13 @@ Format: **Term** — plain meaning — tiny example
 - **one-sided test** — only looks for a gap in one direction — "is this seller worse than usual?" (not "different")
 - **bootstrap** — re-draw many samples of the same size from our own data (with replacement), recompute the number each time, and take the middle 95% as the interval — value share 17.46% (17.03-17.92%), 2,000 resamples
 - **random seed** — a fixed starting number for "random" draws, so the result is the same every run — `random_state=42`
+
+## Phase 5
+- **optimisation** — finding the best choice among many, under limits — which sellers to help with a fixed budget
+- **linear programming (LP)** — optimisation where the goal and the limits are simple sums (no squares, no multiplying choices together) — total benefit = Σ benefit × pick
+- **PuLP** — a Python library to write an LP: choices, goal and limits; a solver then finds the best answer — `model += lpSum(cost * pick) <= BUDGET`
+- **solver** — the program that does the maths behind PuLP — HiGHS (free, open source)
+- **decision variable** — a choice the model makes; "binary" = only 0 (no) or 1 (yes) — `pick_A`
+- **objective** — what the model maximises (or minimises) — unhappy orders avoided
+- **constraint** — a limit the answer must respect — total cost ≤ budget
+- **greedy rule** — "take the best item first, then the next best" — can miss the best combination: A + D = 39 vs B + C = 40

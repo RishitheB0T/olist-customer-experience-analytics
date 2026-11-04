@@ -64,6 +64,7 @@
 - Phase 4, Steps 3-5 (done together): speed on on-time orders 7.56% (0-7 days) to 16.03% (22+), chi-square p = 5.1e-108, 22+ vs 0-7 days 2.12x (1.98-2.27); the rise appears within same-state and within different-state routes. P2: 77.65% of late deliveries had the seller on time (76.62-78.64%); on time but seller late 14.57% vs 8.91%, 1.64x (1.51-1.77); different vs same state within distance bands: 100-499 km +3.42 points (2.75-4.08), 500-999 km +4.40 (2.44-6.35), under 100 km no difference (only 139 different-state orders). P3: minimum group size 500 (478 needed for a ±2.5-point interval at 8.48%); 26 categories, 12 differ from the rest after Holm (6 higher incl. office_furniture +8.78 points, 6 lower incl. stationery, luggage)
 - Phase 4, Steps 6-8: sellers - 393 with 50+ on-time reviewed orders, usual 8.77%, one-sided binomial test + Holm: 24 worse than usual (500 rule would leave 20 sellers). Repeat within 180 days 1.33% vs 1.80%: 0.74x (0.60-0.91), p = 0.0039. Value share 17.46%, bootstrap interval 17.03-17.92%. `docs/phase4_statistics.md` (results table, rules, limitations); README findings + plan updated
 - **Phase 4 complete**: notebook 02_statistics runs top to bottom (0 errors)
+- Phase 5, Step 1: roadmap (7 steps); PuLP 4.2.0 + HiGHS solver (highspy 1.15.1) pinned - PuLP 4 needs a separate solver and has a new API (`model.add_variable`, `result.status`); `notebooks/03_seller_prioritisation.ipynb` toy example: budget 10, solver picks B + C (40 avoided) where "best first" gets A + D (39)
 
 ### Next
-- Phase 5, Step 1: roadmap + PuLP setup (seller prioritisation under a budget)
+- Phase 5, Step 2: seller table from the data (per-seller orders, on-time unhappy rate, excess over usual, Phase 4 test result)
