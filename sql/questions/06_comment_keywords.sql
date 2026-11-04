@@ -1,7 +1,7 @@
 -- Phase 3, Step 8: rough keyword check of review comments (Portuguese).
 -- No "damaged" or "wrong item" column exists, so we look for words in the written message of each
 -- order's chosen review. ROUGH: keywords miss some comments and catch some wrong ones; proper tagging
--- is not part of this project. A comment can match several themes.
+-- is optional extra Phase 11. A comment can match several themes.
 -- Keyword patterns (~ = regex match on the lowercased message):
 --   not received: n[aã]o (recebi|chegou|foi entregue) | ainda n[aã]o | aguardando
 --   late words:   atras (atraso, atrasou...) | demor (demorou, demora...)

@@ -109,7 +109,7 @@ data, are customers who leave a 1-2 star review less likely to order again?**
 **Ideas we can only check partly, or not at all, with this data:**
 - **Damaged or faulty products:** there is no "damaged" column. The only sign is the
   customers' own written comments (in Portuguese, and often left empty). Phase 3 can
-  do a rough keyword check; proper tagging is not part of this project.
+  do a rough keyword check; proper tagging is optional extra Phase 11.
 - **Product quality:** there is no quality rating apart from the review score itself.
 - **Competitors' prices:** the dataset has only Olist's own prices.
 - **Offers and discounts:** there is no discount data. Paying by `voucher` is a
@@ -209,8 +209,9 @@ count and the rule used are in [data_quality_report.md](data_quality_report.md).
   marketing, customer service contacts, returns and refunds.
 - **Saying what a fix would achieve:** we find patterns and suggest tests; we
   don't estimate the effect of a change.
-- **Not in this project:** tagging review text properly, and predicting which orders
-  will get bad reviews. (Choosing which sellers to prioritise under a budget is Phase 5.)
+- **Optional extras, only after the main plan:** tagging review text properly (Phase 11)
+  and predicting which orders will get bad reviews (Phase 12). Choosing which sellers to
+  prioritise under a budget is part of the main plan (Phase 5).
 
 ### Limitations
 1. **Patterns, not causes.** Late orders may differ in other ways too (region,

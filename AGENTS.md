@@ -150,8 +150,10 @@ While explaining, flag (don't fix) anything like:
   they don't prove a cause or that a fix will work,
 - secrets or large data files that might get committed,
 - Kaggle notebooks created outside the planned milestones (K1 after Phase 3,
-  K2 after Phase 7 as a new version of the same notebook),
-- a phase started before the earlier phases are finished,
+  K2 after Phase 7 as a new version of the same notebook; K3 and K4 only in the
+  optional extras; K5-K8 dropped),
+- a phase started before the earlier phases are finished, or an extra (Phase 11-12)
+  started before I say "start extras",
 - resume or README claims about work that isn't built yet.
 
 Format: **"Worth checking:"** + what you noticed + the exact message I can send
@@ -171,4 +173,8 @@ Claude. If you're not sure, say so.
   workbook · 7 Recommendations: memo, slides, A/B test designs (K2).
 - **Engineering phases:** 8 Docker Compose · 9 GitHub Actions CI/CD ·
   10 Azure Data Factory + Databricks (PySpark).
+- **Optional extras (only after I say "start extras"):** 11 AI review tagging:
+  an LLM tags complaint reasons, checked against about 200 of my hand labels (K3) ·
+  12 Prediction of 1-2 star orders with no data leakage, baseline first, precision
+  and recall (K4).
 - Build rules: `CLAUDE.md`. Progress: `PROGRESS.md`. Glossary: `docs/GLOSSARY.md`.

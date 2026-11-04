@@ -113,6 +113,7 @@ PostgreSQL pipeline exactly.
 
 - **Used so far:** Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, Jupyter, matplotlib, Git/GitHub, Kaggle.
 - **Planned:** SciPy, PuLP, Power BI, Excel, Docker Compose, GitHub Actions, Azure Data Factory, Databricks (PySpark).
+- **Optional extras:** an LLM (free tier or local), scikit-learn.
 
 ## Project plan
 
@@ -129,6 +130,8 @@ PostgreSQL pipeline exactly.
 | 8 | Docker Compose | — |
 | 9 | GitHub Actions CI/CD | — |
 | 10 | Azure Data Factory + Databricks (PySpark) | — |
+| 11 | *Optional:* AI tagging of review comments (LLM vs hand labels) | — |
+| 12 | *Optional:* predicting 1-2 star orders before delivery | — |
 
 ## Folder structure
 

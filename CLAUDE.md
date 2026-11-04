@@ -139,6 +139,8 @@ runs top to bottom without errors.
 - **K1 (after Phase 3):** exploration + SQL business questions. ✅ Published.
 - **K2 (after Phase 7):** a new version of the same notebook with the full story:
   what's linked with unhappy customers, the statistics, and what Olist could test next.
+- **K3 (after Phase 11) and K4 (after Phase 12):** only if I start the optional extras.
+- K5-K8 are dropped.
 
 ---
 
@@ -148,6 +150,7 @@ runs top to bottom without errors.
   PuLP, Jupyter, matplotlib, python-dotenv, Kaggle CLI, Power BI Desktop, Excel, Git, GitHub.
 - **Engineering:** Docker + Docker Compose, GitHub Actions, Azure Data Factory,
   Azure Databricks (PySpark).
+- **Optional extras:** an LLM (free-tier API or a local model), scikit-learn.
 - Secrets in `.env` (gitignored), with a `.env.example` of placeholders.
 - Pin package versions in `requirements.txt`.
 
@@ -164,7 +167,8 @@ The README explains how to download it.
 ## 11. Phases
 
 The goal is the project described on my resume: analysis first (Phases 0-7),
-then engineering (Phases 8-10). Work through them in order.
+then engineering (Phases 8-10). Work through them in order. Phases 11-12 are
+optional extras after that.
 
 ### ANALYSIS
 
@@ -212,9 +216,18 @@ resources when the phase is done.
 
 When Phase 10 is finished, tell me clearly: "The project is complete."
 
-**Dropped from the plan:** AI review tagging, the prediction model, Databricks'
-free edition (replaced by Azure Databricks) and Kaggle notebooks K3-K8. Add them
-back only if I ask.
+### EXTRAS (optional) — start only when I say "start extras"
+
+**11. AI review tagging** — an LLM tags each unhappy review comment with a
+complaint reason; I hand-label about 200 comments; we measure how often the LLM
+agrees with me. Use a free-tier API or a local model; any API key goes in `.env`. -> **K3**
+
+**12. Prediction** — flag orders likely to get 1-2 stars using only information
+known before delivery (no data leakage). Simple baseline first; report precision
+and recall. -> **K4**
+
+**Dropped from the plan:** Databricks' free edition (replaced by Azure Databricks)
+and Kaggle notebooks K5-K8. Add them back only if I ask.
 
 ### At the end of every phase
 1. 3-5 line plain recap.
