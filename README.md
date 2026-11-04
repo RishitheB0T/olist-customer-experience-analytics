@@ -111,6 +111,9 @@ Each business question is a saved SQL file in `sql/questions/` (baseline, P1-P5 
 
 # The notebook (monthly trends, states, categories, odd values), run top to bottom
 .\.venv\Scripts\jupyter.exe nbconvert --to notebook --execute --inplace notebooks/01_trends_and_breakdowns.ipynb
+
+# The statistics notebook (tests and 95% intervals for every pattern)
+.\.venv\Scripts\jupyter.exe nbconvert --to notebook --execute --inplace notebooks/02_statistics.ipynb
 ```
 
 **Kaggle notebook (K1):** [What is linked with unhappy Olist customers?](https://www.kaggle.com/code/rishikeshkallapally/what-is-linked-with-unhappy-olist-customers)
