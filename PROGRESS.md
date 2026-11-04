@@ -60,6 +60,7 @@
 
 - **Phase 3 complete**: 7 saved question files, 1 notebook, findings summary, Kaggle K1 public; README status updated
 - Phase 4, Step 1: `notebooks/02_statistics.ipynb` (SciPy). Main KPI 14.73% unhappy, 95% Wilson interval 14.51-14.95% (98,673 orders); small group (8+ days late, rated after arrival) 30.26%, interval 21.09-41.33% (76 orders)
+- Phase 4, Step 2: my exercise (late vs on-time counts: CASE + count FILTER + GROUP BY; SUM of true/false and WHERE inside a function were my mistakes) + chi-square test, gap and risk ratio with 95% intervals. All reviewed: 62.47% vs 9.31%, gap 53.16 points (51.96-54.36), 6.71x (6.53-6.90). Rated after arrival: 19.45% (1,907) vs 9.28% (89,242), gap 10.18 points (8.39-11.96), 2.10x (1.91-2.30), p = 1.3e-50
 
 ### Next
-- Phase 4, Step 2: late vs on time - test + interval for the gap (my exercise first)
+- Phase 4, Step 3: speed on on-time orders - steady trend or noise?

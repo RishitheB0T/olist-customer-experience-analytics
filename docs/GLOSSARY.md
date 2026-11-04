@@ -203,3 +203,7 @@ Format: **Term** — plain meaning — tiny example
 - **standard error** — the typical wobble of a rate from one sample to another; smaller for bigger groups — √(p × (1 − p) ÷ n)
 - **95% confidence interval** — a range the true value probably lies in; 95% of ranges built this way contain it — unhappy rate 14.73%, interval 14.51-14.95%
 - **Wilson interval** — a confidence interval for a rate that stays accurate for small groups and rates near 0% or 100% — 23 of 76 orders: 21.09-41.33%
+- **p-value** — if there were really no link, the chance of seeing a gap this big by luck; below 0.05 = "unlikely to be luck alone" — late vs on time: far below 0.05
+- **chi-square test** — a test of whether two yes/no things (late? unhappy?) are linked, using a 2×2 table of counts — `stats.chi2_contingency(table)`
+- **percentage points** — the plain difference between two percentages — 19.45% − 9.28% = 10.18 points
+- **risk ratio** — how many times more often something happens in one group than another — late orders unhappy 2.1× as often (rated after arrival)
