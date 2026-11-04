@@ -177,7 +177,7 @@ Format: **Term** — plain meaning — tiny example
 - **ntile(4) / quarter** — splits sorted rows into 4 equal-sized groups — price quarter 1 = cheapest quarter of its category, 4 = most expensive
 - **thin listing** — a product page with little information (few photos, short description) — an indirect clue, not a quality measure
 - **concentration** — how much of a total sits with a few members; compare it with their share of orders, not just the total — top 20% of sellers: 84.80% of unhappy reviews but also 80.04% of orders
-- **minimum group size** — the smallest group allowed to get its own rate, so tiny groups don't give noisy numbers — 50 reviewed orders per seller (provisional, set in Phase 4)
+- **minimum group size** — the smallest group allowed to get its own rate, so tiny groups don't give noisy numbers — Phase 4 rule: 500+ orders, because at an 8.48% rate that keeps the 95% interval within about ±2.5 points (478 needed)
 - **repeat purchase rate** — customers who order again within a fixed window ÷ customers with that full window — 180 days: 1.33% unhappy vs 1.80% others
 - **full window** — the whole follow-up period fits before the data ends, so "didn't come back" is real, not just unseen — 53,522 customers for 180 days
 - **data end (effective)** — the last day the data is complete enough to trust — 2018-08-31 (almost no orders after it)
@@ -207,3 +207,6 @@ Format: **Term** — plain meaning — tiny example
 - **chi-square test** — a test of whether two yes/no things (late? unhappy?) are linked, using a 2×2 table of counts — `stats.chi2_contingency(table)`
 - **percentage points** — the plain difference between two percentages — 19.45% − 9.28% = 10.18 points
 - **risk ratio** — how many times more often something happens in one group than another — late orders unhappy 2.1× as often (rated after arrival)
+- **like with like** — comparing groups only where another difference is held equal, so it can't explain the gap — same-state vs different-state routes inside the same distance band
+- **multiple testing** — running many tests at once; at the 0.05 line about 1 in 20 looks "significant" by luck — 26 categories tested
+- **Holm correction** — makes each p-value stricter depending on how many tests were run (smallest × m, next × (m − 1), ...) — 12 of 26 categories still differ after it

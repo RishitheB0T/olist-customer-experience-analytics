@@ -61,6 +61,7 @@
 - **Phase 3 complete**: 7 saved question files, 1 notebook, findings summary, Kaggle K1 public; README status updated
 - Phase 4, Step 1: `notebooks/02_statistics.ipynb` (SciPy). Main KPI 14.73% unhappy, 95% Wilson interval 14.51-14.95% (98,673 orders); small group (8+ days late, rated after arrival) 30.26%, interval 21.09-41.33% (76 orders)
 - Phase 4, Step 2: my exercise (late vs on-time counts: CASE + count FILTER + GROUP BY; SUM of true/false and WHERE inside a function were my mistakes) + chi-square test, gap and risk ratio with 95% intervals. All reviewed: 62.47% vs 9.31%, gap 53.16 points (51.96-54.36), 6.71x (6.53-6.90). Rated after arrival: 19.45% (1,907) vs 9.28% (89,242), gap 10.18 points (8.39-11.96), 2.10x (1.91-2.30), p = 1.3e-50
+- Phase 4, Steps 3-5 (done together): speed on on-time orders 7.56% (0-7 days) to 16.03% (22+), chi-square p = 5.1e-108, 22+ vs 0-7 days 2.12x (1.98-2.27); the rise appears within same-state and within different-state routes. P2: 77.65% of late deliveries had the seller on time (76.62-78.64%); on time but seller late 14.57% vs 8.91%, 1.64x (1.51-1.77); different vs same state within distance bands: 100-499 km +3.42 points (2.75-4.08), 500-999 km +4.40 (2.44-6.35), under 100 km no difference (only 139 different-state orders). P3: minimum group size 500 (478 needed for a ±2.5-point interval at 8.48%); 26 categories, 12 differ from the rest after Holm (6 higher incl. office_furniture +8.78 points, 6 lower incl. stationery, luggage)
 
 ### Next
-- Phase 4, Step 3: speed on on-time orders - steady trend or noise?
+- Phase 4, Step 6: sellers (P4) - which high-rate sellers stand out beyond chance, final minimum per seller
