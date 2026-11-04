@@ -59,6 +59,7 @@
 - Plan: added 2 optional extras after Phase 10, started only on "start extras": 11 AI review tagging (K3, free-tier or local LLM vs ~200 hand labels), 12 Prediction (K4, no data leakage, baseline first, precision and recall). K5-K8 stay dropped
 
 - **Phase 3 complete**: 7 saved question files, 1 notebook, findings summary, Kaggle K1 public; README status updated
+- Phase 4, Step 1: `notebooks/02_statistics.ipynb` (SciPy). Main KPI 14.73% unhappy, 95% Wilson interval 14.51-14.95% (98,673 orders); small group (8+ days late, rated after arrival) 30.26%, interval 21.09-41.33% (76 orders)
 
 ### Next
-- Phase 4, Step 1: confidence interval for one rate (the main KPI)
+- Phase 4, Step 2: late vs on time - test + interval for the gap (my exercise first)

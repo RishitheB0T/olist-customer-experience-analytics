@@ -196,3 +196,10 @@ Format: **Term** — plain meaning — tiny example
 - **kernel-metadata.json** — the settings file Kaggle reads when you push a notebook: ID, title, file, dataset, public or private — `"dataset_sources": ["olistbr/brazilian-ecommerce"]`
 - **kaggle kernels push** — uploads a notebook to Kaggle and runs it there ("kernel" = Kaggle's word for a notebook) — `kaggle kernels push -p kaggle/k1_unhappy_customers`
 - **403 Forbidden** — a website's answer meaning "I know who you are, but you're not allowed to do this" — Kaggle's reply to our first push
+
+## Phase 4
+- **SciPy** — Python's standard library for statistics (tests, intervals) — `stats.binomtest(14533, 98673)`
+- **sample** — the data we happen to have, out of everything that could have happened — our 98,673 reviewed orders
+- **standard error** — the typical wobble of a rate from one sample to another; smaller for bigger groups — √(p × (1 − p) ÷ n)
+- **95% confidence interval** — a range the true value probably lies in; 95% of ranges built this way contain it — unhappy rate 14.73%, interval 14.51-14.95%
+- **Wilson interval** — a confidence interval for a rate that stays accurate for small groups and rates near 0% or 100% — 23 of 76 orders: 21.09-41.33%
