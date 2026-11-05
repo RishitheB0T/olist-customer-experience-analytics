@@ -226,3 +226,9 @@ Format: **Term** — plain meaning — tiny example
 - **greedy rule** — "take the best item first, then the next best" — can miss the best combination: A + D = 39 vs B + C = 40
 - **excess unhappy orders** — unhappy orders above what the usual rate would give — 178 unhappy of 870 at 8.77% usual = 101.7 excess
 - **careful (conservative) estimate** — redo a number using the cautious end of its interval — excess at the Wilson low end: 79.5 instead of 101.7
+- **assumption** — a number we choose because the data doesn't have it — cost per seller = 1,000 units
+- **cost units** — made-up units so costs can be compared without knowing real prices — seller A costs 1,712 units
+- **binding constraint** — the limit the best answer actually hits — 7,975 of 8,000 spent, but only 5 of 6 sellers
+- **scenario** — one set of assumptions to try — fixed cost 500, per order 2, budget 6,000
+- **sensitivity analysis** — rerun with different assumptions to see if the answer changes — a seller chosen in 162 of 162 scenarios is robust
+- **regression to the mean** — extreme values tend to move back towards average next time — a 54% seller may fall to 30% with no fix at all

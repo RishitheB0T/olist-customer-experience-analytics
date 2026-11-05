@@ -68,5 +68,8 @@
 
 - Phase 5, Step 2: seller table in notebook 03 - rebuilds the Phase 4 test (8.77% usual, 393 tested, 24 worse); 24 candidates, 7,821 on-time orders, 686 excess unhappy orders (425 careful), the 5 biggest hold 47%
 
+- Phase 5, Steps 3-6: assumptions in one cell (3-month pilot, 1,000 units per seller + 5 per order, 30% of excess removed, budget 8,000, up to 6 sellers); PuLP picks 5 sellers (7,975 units, 25.8 unhappy orders avoided) vs worst rate first 19.6, most excess first 20.8, value for money first 25.2; 162 scenarios: 3 core sellers (85-100%), 2 often, 13 never; shortlist saved to docs/phase5_seller_shortlist.csv
+- **Phase 5 complete**: notebook 03 runs top to bottom (0 errors); docs/phase5_seller_prioritisation.md; README updated
+
 ### Next
-- Phase 5, Step 3: write down the cost and benefit assumptions (cost per seller, share of excess a fix might remove)
+- Phase 6, Step 1: install Power BI Desktop and check Excel, then connect Power BI to the analytics schema

@@ -10,9 +10,9 @@ is a short list of changes **worth testing**, each with a suggested way to test 
 things would be worth testing a fix for first?
 Full plan: patterns, KPIs, scope and limitations in [docs/problem_brief.md](docs/problem_brief.md).
 
-> 🚧 Work in progress: Phases 0-4 done; next is **Phase 5 (seller prioritisation with PuLP)**.
+> 🚧 Work in progress: Phases 0-5 done; next is **Phase 6 (Power BI dashboard + Excel workbook)**.
 
-## Findings so far (Phases 3-4)
+## Findings so far (Phases 3-5)
 
 These are patterns in past orders (things that go together), not proof of causes.
 
@@ -32,8 +32,14 @@ These are patterns in past orders (things that go together), not proof of causes
 - **Repeat orders:** unhappy customers ordered again 0.74× as often within 180 days (0.60-0.91).
 - **Value:** the unhappy share of order value is 17.46%, with an interval of 17.03-17.92%.
 
+**Sellers under a budget (Phase 5):** with written-down cost assumptions, a PuLP model picks 5 of the
+24 sellers for an 8,000-unit pilot, expected to avoid about 25.8 unhappy orders in 3 months (more than
+"worst rate first", 19.6). Across 162 sets of assumptions, 3 sellers are chosen 85-100% of the time:
+the shortlist worth testing first.
+
 Full summaries, with every count and its limitations: [docs/phase3_findings.md](docs/phase3_findings.md)
-(patterns) and [docs/phase4_statistics.md](docs/phase4_statistics.md) (tests and intervals).
+(patterns), [docs/phase4_statistics.md](docs/phase4_statistics.md) (tests and intervals) and
+[docs/phase5_seller_prioritisation.md](docs/phase5_seller_prioritisation.md) (sellers under a budget).
 
 ## Data
 
@@ -114,6 +120,9 @@ Each business question is a saved SQL file in `sql/questions/` (baseline, P1-P5 
 
 # The statistics notebook (tests and 95% intervals for every pattern)
 .\.venv\Scripts\jupyter.exe nbconvert --to notebook --execute --inplace notebooks/02_statistics.ipynb
+
+# The seller prioritisation notebook (PuLP budget model; writes docs/phase5_seller_shortlist.csv)
+.\.venv\Scripts\jupyter.exe nbconvert --to notebook --execute --inplace notebooks/03_seller_prioritisation.ipynb
 ```
 
 **Kaggle notebook (K1):** [What is linked with unhappy Olist customers?](https://www.kaggle.com/code/rishikeshkallapally/what-is-linked-with-unhappy-olist-customers)
@@ -123,8 +132,8 @@ PostgreSQL pipeline exactly.
 
 ## Tech stack
 
-- **Used so far:** Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, SciPy, Jupyter, matplotlib, Git/GitHub, Kaggle.
-- **Planned:** PuLP, Power BI, Excel, Docker Compose, GitHub Actions, Azure Data Factory, Databricks (PySpark).
+- **Used so far:** Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, SciPy, PuLP (HiGHS solver), Jupyter, matplotlib, Git/GitHub, Kaggle.
+- **Planned:** Power BI, Excel, Docker Compose, GitHub Actions, Azure Data Factory, Databricks (PySpark).
 - **Optional extras:** an LLM (free tier or local), scikit-learn.
 
 ## Project plan
@@ -136,8 +145,8 @@ PostgreSQL pipeline exactly.
 | 2 | Clean data (raw → clean → star schema) | ✅ Done |
 | 3 | SQL + Python analysis, Kaggle notebook | ✅ Done |
 | 4 | Statistics (hypothesis tests, confidence intervals) | ✅ Done |
-| 5 | Seller prioritisation under a budget (PuLP) | Next |
-| 6 | Power BI dashboard + Excel workbook | — |
+| 5 | Seller prioritisation under a budget (PuLP) | ✅ Done |
+| 6 | Power BI dashboard + Excel workbook | Next |
 | 7 | Recommendations (memo, slides, A/B test designs) | — |
 | 8 | Docker Compose | — |
 | 9 | GitHub Actions CI/CD | — |
@@ -155,6 +164,6 @@ src/          Python pipeline code (pipeline.py runs everything)
 notebooks/    Jupyter notebooks (trends and breakdowns, with charts)
 kaggle/       Kaggle notebooks, one folder per milestone
 dashboards/   Power BI files
-docs/         problem brief, data quality report, Phase 3 findings, Phase 4 statistics, glossary, memo
+docs/         problem brief, data quality report, Phase 3 findings, Phase 4 statistics, Phase 5 seller shortlist, glossary, memo
 tests/        data quality tests (data_quality.sql)
 ```
