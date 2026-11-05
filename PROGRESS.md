@@ -66,5 +66,7 @@
 - **Phase 4 complete**: notebook 02_statistics runs top to bottom (0 errors)
 - Phase 5, Step 1: roadmap (7 steps); PuLP 4.2.0 + HiGHS solver (highspy 1.15.1) pinned - PuLP 4 needs a separate solver and has a new API (`model.add_variable`, `result.status`); `notebooks/03_seller_prioritisation.ipynb` toy example: budget 10, solver picks B + C (40 avoided) where "best first" gets A + D (39)
 
+- Phase 5, Step 2: seller table in notebook 03 - rebuilds the Phase 4 test (8.77% usual, 393 tested, 24 worse); 24 candidates, 7,821 on-time orders, 686 excess unhappy orders (425 careful), the 5 biggest hold 47%
+
 ### Next
-- Phase 5, Step 2: seller table from the data (per-seller orders, on-time unhappy rate, excess over usual, Phase 4 test result)
+- Phase 5, Step 3: write down the cost and benefit assumptions (cost per seller, share of excess a fix might remove)

@@ -224,3 +224,5 @@ Format: **Term** — plain meaning — tiny example
 - **objective** — what the model maximises (or minimises) — unhappy orders avoided
 - **constraint** — a limit the answer must respect — total cost ≤ budget
 - **greedy rule** — "take the best item first, then the next best" — can miss the best combination: A + D = 39 vs B + C = 40
+- **excess unhappy orders** — unhappy orders above what the usual rate would give — 178 unhappy of 870 at 8.77% usual = 101.7 excess
+- **careful (conservative) estimate** — redo a number using the cautious end of its interval — excess at the Wilson low end: 79.5 instead of 101.7
