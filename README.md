@@ -10,7 +10,7 @@ is a short list of changes **worth testing**, each with a suggested way to test 
 things would be worth testing a fix for first?
 Full plan: patterns, KPIs, scope and limitations in [docs/problem_brief.md](docs/problem_brief.md).
 
-> 🚧 Work in progress: Phases 0-5 done; next is **Phase 6 (Power BI dashboard + Excel workbook)**.
+> 🚧 Work in progress: Phases 0-5 done; **Phase 6** in progress (Excel workbook done, Power BI dashboard being built).
 
 ## Findings so far (Phases 3-5)
 
@@ -87,11 +87,12 @@ flowchart LR
     B -->|sql/clean_*.sql| C[("clean<br/>real types, keys, flags")]
     C -->|sql/analytics_*.sql| D[("analytics<br/>star schema")]
     D -->|tests/data_quality.sql| E{"13 tests<br/>PASS / FAIL"}
+    D -->|sql/dashboard_views.sql| F[("dashboard<br/>views for Power BI + Excel")]
 ```
 
 - **raw:** the CSV files as they are; every row count is checked against its file.
 - **clean:** real data types, primary and foreign keys, and `flag_...` columns for odd rows. **Nothing is deleted.**
-- **analytics:** a star schema for analysis and Power BI. All 8 SQL builds run in one transaction: if one fails,
+- **analytics:** a star schema for analysis and Power BI. All 9 SQL builds run in one transaction: if one fails,
   nothing changes.
 - **tests:** each test counts rows that break a rule; the pipeline stops if any test fails.
 
@@ -102,6 +103,8 @@ flowchart LR
 | `dim_customer`, `dim_seller` | customer / seller, with city, state and map point |
 | `dim_product` | product, with English category and size |
 | `dim_date` | calendar day (2016-2018) |
+
+- **dashboard:** two views (`orders`, `sellers`) with the same bands and labels as the analysis, for Power BI and Excel.
 
 Every problem found in the data, and the rule used for it, is in
 [docs/data_quality_report.md](docs/data_quality_report.md).
@@ -130,10 +133,22 @@ Each business question is a saved SQL file in `sql/questions/` (baseline, P1-P5 
 questions with DuckDB straight from the raw CSV files, because Kaggle can't reach PostgreSQL. Its results match the
 PostgreSQL pipeline exactly.
 
+## Dashboard and Excel
+
+```powershell
+# Excel KPI workbook: summary table + 4 pivot tables + seller shortlist (needs Windows + Excel)
+.\.venv\Scripts\python.exe -m src.build_excel
+```
+
+- **Excel:** [`excel/olist_kpis.xlsx`](excel/olist_kpis.xlsx) has pivot tables by month, lateness, state and
+  category (unhappy rate and late rate, with filters), plus the Phase 5 seller shortlist.
+- **Power BI:** 3 pages (overview, delivery deep-dive, sellers), built from the `dashboard` views. The
+  build steps, measures and the numbers each visual should show are in [docs/dashboard_guide.md](docs/dashboard_guide.md).
+
 ## Tech stack
 
-- **Used so far:** Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, SciPy, PuLP (HiGHS solver), Jupyter, matplotlib, Git/GitHub, Kaggle.
-- **Planned:** Power BI, Excel, Docker Compose, GitHub Actions, Azure Data Factory, Databricks (PySpark).
+- **Used so far:** Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, SciPy, PuLP (HiGHS solver), Jupyter, matplotlib, Excel (pivot tables via pywin32), Git/GitHub, Kaggle.
+- **Planned:** Power BI (in progress), Docker Compose, GitHub Actions, Azure Data Factory, Databricks (PySpark).
 - **Optional extras:** an LLM (free tier or local), scikit-learn.
 
 ## Project plan
@@ -146,7 +161,7 @@ PostgreSQL pipeline exactly.
 | 3 | SQL + Python analysis, Kaggle notebook | ✅ Done |
 | 4 | Statistics (hypothesis tests, confidence intervals) | ✅ Done |
 | 5 | Seller prioritisation under a budget (PuLP) | ✅ Done |
-| 6 | Power BI dashboard + Excel workbook | Next |
+| 6 | Power BI dashboard + Excel workbook | In progress |
 | 7 | Recommendations (memo, slides, A/B test designs) | — |
 | 8 | Docker Compose | — |
 | 9 | GitHub Actions CI/CD | — |
@@ -163,7 +178,8 @@ sql/questions/  Phase 3 business questions (baseline, P1-P5, review comments)
 src/          Python pipeline code (pipeline.py runs everything)
 notebooks/    Jupyter notebooks (trends and breakdowns, with charts)
 kaggle/       Kaggle notebooks, one folder per milestone
-dashboards/   Power BI files
+dashboards/   Power BI measures, theme and dashboard
+excel/        KPI workbook with pivot tables
 docs/         problem brief, data quality report, Phase 3 findings, Phase 4 statistics, Phase 5 seller shortlist, glossary, memo
 tests/        data quality tests (data_quality.sql)
 ```

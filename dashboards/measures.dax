@@ -1,0 +1,49 @@
+// Power BI measures for the Olist dashboard (Phase 6).
+// A measure is a formula Power BI recalculates for whatever is filtered (a state, a month, a band).
+// Add each one with: Modeling > New measure, then paste ONE block (name = formula).
+// Tables: orders = dashboard.orders, sellers = dashboard.sellers, shortlist = the Phase 5 CSV,
+//         dim_date = analytics.dim_date.
+
+// ---- Counts ----
+Orders = COUNTROWS ( orders )
+
+Reviewed = CALCULATE ( COUNTROWS ( orders ), orders[has_review] = TRUE () )
+
+Unhappy = CALCULATE ( COUNTROWS ( orders ), orders[is_unhappy] = TRUE () )
+
+Delivered = CALCULATE ( COUNTROWS ( orders ), orders[is_delivered] = TRUE () )
+
+// late among delivered orders only, so the late rate can't go above 100%
+Late = CALCULATE ( COUNTROWS ( orders ), orders[is_late] = TRUE (), orders[is_delivered] = TRUE () )
+
+// ---- KPIs (DIVIDE returns blank instead of an error when the bottom is 0) ----
+Unhappy rate = DIVIDE ( [Unhappy], [Reviewed] )
+
+Late rate = DIVIDE ( [Late], [Delivered] )
+
+Avg delivery days = CALCULATE ( AVERAGE ( orders[delivery_days] ), orders[is_delivered] = TRUE () )
+
+Paid value = SUM ( orders[paid_total] )
+
+// share of reviewed order value that sits in unhappy orders (Phase 4: 17.46%)
+Unhappy value share =
+DIVIDE (
+    CALCULATE ( [Paid value], orders[is_unhappy] = TRUE () ),
+    CALCULATE ( [Paid value], orders[has_review] = TRUE () )
+)
+
+// ---- Sellers (on-time orders only, same rule as Phases 4-5) ----
+Seller on-time unhappy rate = DIVIDE ( SUM ( sellers[unhappy_on_time] ), SUM ( sellers[reviewed_on_time] ) )
+
+// ALL ( sellers ) ignores filters, so this stays the usual rate (8.77%) on every visual
+Usual on-time unhappy rate =
+CALCULATE (
+    DIVIDE ( SUM ( sellers[unhappy_on_time] ), SUM ( sellers[reviewed_on_time] ) ),
+    ALL ( sellers )
+)
+
+Sellers tested = CALCULATE ( COUNTROWS ( sellers ), sellers[reviewed_on_time] >= 50 )
+
+Shortlist sellers = COUNTROWS ( shortlist )
+
+Core sellers = CALCULATE ( COUNTROWS ( shortlist ), shortlist[tier] = "core" )

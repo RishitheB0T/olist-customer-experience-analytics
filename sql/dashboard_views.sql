@@ -28,7 +28,8 @@ SELECT f.order_id,
        c.state                         AS customer_state,
        f.seller_id,                                   -- NULL when the order has several sellers
        s.state                         AS seller_state,
-       CASE WHEN s.state IS NULL THEN NULL
+       CASE WHEN f.n_sellers = 0 THEN 'no items'
+            WHEN f.n_sellers > 1 THEN 'several sellers'
             WHEN s.state = c.state THEN 'same state' ELSE 'other state' END AS route,
        coalesce(oc.category, 'no items') AS category,
        f.delivery_days, f.days_late, f.is_late, f.handover_late, f.distance_km,

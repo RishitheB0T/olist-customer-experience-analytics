@@ -71,5 +71,10 @@
 - Phase 5, Steps 3-6: assumptions in one cell (3-month pilot, 1,000 units per seller + 5 per order, 30% of excess removed, budget 8,000, up to 6 sellers); PuLP picks 5 sellers (7,975 units, 25.8 unhappy orders avoided) vs worst rate first 19.6, most excess first 20.8, value for money first 25.2; 162 scenarios: 3 core sellers (85-100%), 2 often, 13 never; shortlist saved to docs/phase5_seller_shortlist.csv
 - **Phase 5 complete**: notebook 03 runs top to bottom (0 errors); docs/phase5_seller_prioritisation.md; README updated
 
+- Phase 6, Step 1: roadmap; Power BI Desktop (2.159) and Excel already installed
+- Phase 6, Step 2: `sql/dashboard_views.sql` (dashboard.orders, dashboard.sellers), added to the pipeline (9 builds, 13/13 tests pass); checks match earlier phases (99,441 orders, 14.73%, 393 sellers at 8.77%); lateness bands for delivered orders only, so 8+ days late = 79.36% as in Phase 3
+- Phase 6, Step 3: `src/build_excel.py` -> `excel/olist_kpis.xlsx` (2.1 MB): summary table (30,456 rows), 4 real pivot tables (month, lateness, state, category) with unhappy and late rate, seller shortlist, About sheet; pivot totals checked against SQL
+- Phase 6, Step 4: Power BI kit - `dashboards/measures.dax`, `dashboards/olist_theme.json`, `docs/dashboard_guide.md` (3 pages, check numbers per visual)
+
 ### Next
-- Phase 6, Step 1: install Power BI Desktop and check Excel, then connect Power BI to the analytics schema
+- Phase 6, Step 5: build the 3 Power BI pages by following docs/dashboard_guide.md, save dashboards/olist_dashboard.pbix, check the numbers, then commit and close Phase 6

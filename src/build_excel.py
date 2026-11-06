@@ -26,7 +26,7 @@ SUMMARY_SQL = """
 SELECT to_char(purchase_month, 'YYYY-MM')                AS month,
        CASE WHEN in_main_period THEN 'yes' ELSE 'no' END AS main_period,
        customer_state,
-       coalesce(route, 'several sellers')                 AS route,
+       route,
        category,
        coalesce(days_late_band, '5. not delivered')       AS days_late_band,
        coalesce(delivery_time_band, '5. not delivered')   AS delivery_time_band,

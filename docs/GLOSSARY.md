@@ -232,3 +232,19 @@ Format: **Term** — plain meaning — tiny example
 - **scenario** — one set of assumptions to try — fixed cost 500, per order 2, budget 6,000
 - **sensitivity analysis** — rerun with different assumptions to see if the answer changes — a seller chosen in 162 of 162 scenarios is robust
 - **regression to the mean** — extreme values tend to move back towards average next time — a 54% seller may fall to 30% with no fix at all
+
+## Phase 6
+- **view** — a saved query that looks like a table but stores no data — `dashboard.orders` reads the analytics tables
+- **pivot table** — Excel table that groups and totals rows by dragging fields — rows = state, values = unhappy rate
+- **calculated field** — a pivot formula worked out on the totals — unhappy ÷ reviewed for each state
+- **pivot cache** — the copy of the data a pivot table reads; several pivots can share one — 4 pivots, 1 cache
+- **COM automation (pywin32)** — Python sends commands to the Excel app itself — creates real pivot tables
+- **Power BI Desktop** — Microsoft's free app for building interactive dashboards — 3 pages with filters
+- **Import mode** — Power BI copies the data into the file (a snapshot); press Refresh for new data — vs live query
+- **measure** — a Power BI formula recalculated for whatever is filtered — Unhappy rate for SP only
+- **DAX** — the formula language of Power BI measures — `DIVIDE([Unhappy], [Reviewed])`
+- **relationship (one-to-many)** — a link between tables on a key; one row on one side matches many on the other — one seller, many orders
+- **date table** — one row per day, so charts can group by month or year — `dim_date`
+- **slicer** — an on-page filter the viewer clicks — pick a customer state
+- **card** — a visual showing one big number — Unhappy rate 14.73%
+- **theme** — a file of colours applied to the whole report — `olist_theme.json`
