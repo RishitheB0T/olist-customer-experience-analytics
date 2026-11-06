@@ -10,5 +10,6 @@ jupyter==1.1.1           # notebooks: code + output + notes on one page
 matplotlib==3.11.2       # charts in the notebooks
 pulp==4.2.0              # optimisation: pick the best choice under limits (Phase 5)
 highspy==1.15.1          # HiGHS, the free solver PuLP uses to do the maths
+pywin32==312; sys_platform == "win32"  # lets Python drive Excel to build real pivot tables (Phase 6, Windows only)
 python-dotenv==1.2.4     # reads passwords from .env so they stay out of the code
 kaggle==2.2.5            # Kaggle command-line tool: download data, push notebooks

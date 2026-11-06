@@ -32,12 +32,12 @@ SELECT f.order_id,
             WHEN s.state = c.state THEN 'same state' ELSE 'other state' END AS route,
        coalesce(oc.category, 'no items') AS category,
        f.delivery_days, f.days_late, f.is_late, f.handover_late, f.distance_km,
-       CASE WHEN f.days_late IS NULL THEN NULL
+       CASE WHEN f.days_late IS NULL OR f.order_status <> 'delivered' THEN NULL    -- bands for delivered orders only
             WHEN f.days_late <= 0 THEN '1. on time or early'
             WHEN f.days_late <= 3 THEN '2. 1-3 days late'
             WHEN f.days_late <= 7 THEN '3. 4-7 days late'
             ELSE '4. 8+ days late' END AS days_late_band,
-       CASE WHEN f.delivery_days IS NULL THEN NULL
+       CASE WHEN f.delivery_days IS NULL OR f.order_status <> 'delivered' THEN NULL
             WHEN f.delivery_days <= 7  THEN '1. 0-7 days'
             WHEN f.delivery_days <= 14 THEN '2. 8-14 days'
             WHEN f.delivery_days <= 21 THEN '3. 15-21 days'
@@ -60,7 +60,7 @@ SELECT o.seller_id,
        min(o.seller_state)                                              AS seller_state,
        count(*)                                                         AS orders,
        count(*) FILTER (WHERE o.is_delivered)                           AS delivered,
-       count(*) FILTER (WHERE o.is_late)                                AS late,
+       count(*) FILTER (WHERE o.is_late AND o.is_delivered)             AS late,   -- among delivered
        count(*) FILTER (WHERE o.has_review)                             AS reviewed,
        count(*) FILTER (WHERE o.is_unhappy)                             AS unhappy,
        -- the Phase 4-5 seller measure: reviewed, delivered, on-time orders only
