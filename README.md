@@ -10,7 +10,7 @@ is a short list of changes **worth testing**, each with a suggested way to test 
 things would be worth testing a fix for first?
 Full plan: patterns, KPIs, scope and limitations in [docs/problem_brief.md](docs/problem_brief.md).
 
-> 🚧 Work in progress: Phases 0-5 done; **Phase 6** in progress (Excel workbook done, Power BI dashboard being built).
+> 🚧 Work in progress: Phases 0-6 done; next is **Phase 7 (recommendations: memo, slides, A/B test designs)**.
 
 ## Findings so far (Phases 3-5)
 
@@ -142,13 +142,38 @@ PostgreSQL pipeline exactly.
 
 - **Excel:** [`excel/olist_kpis.xlsx`](excel/olist_kpis.xlsx) has pivot tables by month, lateness, state and
   category (unhappy rate and late rate, with filters), plus the Phase 5 seller shortlist.
-- **Power BI:** 3 pages (overview, delivery deep-dive, sellers), built from the `dashboard` views. The
-  build steps, measures and the numbers each visual should show are in [docs/dashboard_guide.md](docs/dashboard_guide.md).
+- **Power BI:** [`dashboards/olist_dashboard.pbix`](dashboards/olist_dashboard.pbix), 3 pages built from the
+  `dashboard` views (see below). The build steps, the 15 measures and the number each visual should show are
+  in [docs/dashboard_guide.md](docs/dashboard_guide.md); `python -m src.run_sql sql/check_dashboard.sql`
+  recalculates every one of those numbers from the database.
+
+## Dashboard
+
+A 3-page Power BI KPI dashboard. Every number on it was checked against
+[`sql/check_dashboard.sql`](sql/check_dashboard.sql). Full report as a PDF:
+[dashboards/olist_dashboard.pdf](dashboards/olist_dashboard.pdf).
+
+**1. Overview:** headline KPIs, the monthly unhappy rate, and the unhappy rate by days late.
+
+![Overview page](dashboards/screenshots/overview.png)
+
+**2. Delivery deep-dive:** on-time orders by delivery time, same-state vs other-state routes, and customer
+states by late rate, with a year filter.
+
+![Delivery page](dashboards/screenshots/delivery.png)
+
+**3. Sellers:** every seller with 50+ on-time reviewed orders against the usual 8.77% rate, and the Phase 5
+shortlist worth testing, with a tier filter.
+
+![Sellers page](dashboards/screenshots/sellers.png)
+
+These are patterns in past orders, not proof of causes. The seller shortlist rests on written-down cost
+assumptions (Phase 5). The screenshots are static; in Power BI the state table scrolls and the filters work.
 
 ## Tech stack
 
-- **Used so far:** Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, SciPy, PuLP (HiGHS solver), Jupyter, matplotlib, Excel (pivot tables via pywin32), Git/GitHub, Kaggle.
-- **Planned:** Power BI (in progress), Docker Compose, GitHub Actions, Azure Data Factory, Databricks (PySpark).
+- **Used so far:** Python, pandas, PostgreSQL, SQLAlchemy, DuckDB, SciPy, PuLP (HiGHS solver), Jupyter, matplotlib, Excel (pivot tables via pywin32), Power BI (DAX measures), Git/GitHub, Kaggle.
+- **Planned:** Docker Compose, GitHub Actions, Azure Data Factory, Databricks (PySpark).
 - **Optional extras:** an LLM (free tier or local), scikit-learn.
 
 ## Project plan
@@ -161,8 +186,8 @@ PostgreSQL pipeline exactly.
 | 3 | SQL + Python analysis, Kaggle notebook | ✅ Done |
 | 4 | Statistics (hypothesis tests, confidence intervals) | ✅ Done |
 | 5 | Seller prioritisation under a budget (PuLP) | ✅ Done |
-| 6 | Power BI dashboard + Excel workbook | In progress |
-| 7 | Recommendations (memo, slides, A/B test designs) | — |
+| 6 | Power BI dashboard + Excel workbook | ✅ Done |
+| 7 | Recommendations (memo, slides, A/B test designs) | Next |
 | 8 | Docker Compose | — |
 | 9 | GitHub Actions CI/CD | — |
 | 10 | Azure Data Factory + Databricks (PySpark) | — |
@@ -178,7 +203,7 @@ sql/questions/  Phase 3 business questions (baseline, P1-P5, review comments)
 src/          Python pipeline code (pipeline.py runs everything)
 notebooks/    Jupyter notebooks (trends and breakdowns, with charts)
 kaggle/       Kaggle notebooks, one folder per milestone
-dashboards/   Power BI measures, theme and dashboard
+dashboards/   Power BI dashboard (.pbix + PDF + screenshots), measures and theme
 excel/        KPI workbook with pivot tables
 docs/         problem brief, data quality report, Phase 3 findings, Phase 4 statistics, Phase 5 seller shortlist, glossary, memo
 tests/        data quality tests (data_quality.sql)

@@ -76,5 +76,8 @@
 - Phase 6, Step 3: `src/build_excel.py` -> `excel/olist_kpis.xlsx` (2.1 MB): summary table (30,456 rows), 4 real pivot tables (month, lateness, state, category) with unhappy and late rate, seller shortlist, About sheet; pivot totals checked against SQL
 - Phase 6, Step 4: Power BI kit - `dashboards/measures.dax`, `dashboards/olist_theme.json`, `docs/dashboard_guide.md` (3 pages, check numbers per visual)
 
+- Phase 6, Step 5: `sql/check_dashboard.sql` recalculates every dashboard number from the views; Power BI report built page by page (4 tables, 3 relationships, date table, 15 measures, Overview / Delivery / Sellers) - every visual matches the SQL checks (99,441 · 14.73% · 6.77% · 17.46%; 79.36% for 8+ days late; AL 21.41% late; 393 sellers at 8.77%; 24 shortlisted, 3 core); `dashboards/olist_dashboard.pbix` (4.3 MB), PDF export and 3 page screenshots; guide corrected for this Power BI version
+- **Phase 6 complete**: Excel workbook (4 pivot tables + seller shortlist) and 3-page Power BI dashboard; README has the dashboard screenshots
+
 ### Next
-- Phase 6, Step 5: build the 3 Power BI pages by following docs/dashboard_guide.md, save dashboards/olist_dashboard.pbix, check the numbers, then commit and close Phase 6
+- Phase 7, Step 1: roadmap for the recommendations (1-page memo, 5-slide readout, an A/B test design per recommendation), then K2

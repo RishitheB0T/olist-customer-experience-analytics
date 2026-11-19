@@ -248,3 +248,7 @@ Format: **Term** — plain meaning — tiny example
 - **slicer** — an on-page filter the viewer clicks — pick a customer state
 - **card** — a visual showing one big number — Unhappy rate 14.73%
 - **theme** — a file of colours applied to the whole report — `olist_theme.json`
+- **cross-filter direction** — which way a filter flows along a relationship; single = from the "one" side to the "many" side — picking a month filters orders, not the other way
+- **display units** — how a card shortens big numbers; Auto shows 99K, None shows 99,441 — set per measure on the card
+- **constant line** — a fixed reference line drawn across a chart — the usual 8.77% rate on the seller scatter
+- **blank row (unmatched relationship)** — Power BI adds a hidden blank row when one table has keys the other lacks — the "(Blank)" tier for sellers not in the shortlist
